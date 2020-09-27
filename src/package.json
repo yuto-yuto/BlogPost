@@ -11,8 +11,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "yuto-yuto",
-  "license": "MIT",
-  "dependencies": {
-    "lerna": "^3.22.1"
-  }
+  "license": "MIT"
 }

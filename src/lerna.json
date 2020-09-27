@@ -7,5 +7,5 @@
         "npmClientArgs": ["--no-package-lock"]
       }
     },
-    "packages": ["src/*"]
+    "packages": ["./*"]
   }
