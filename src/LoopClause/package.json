@@ -1,0 +1,38 @@
+{
+  "name": "loop-clause",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuto-yuto/BlogPost.git"
+  },
+  "description": "",
+  "directories": {
+    "lib": "lib"
+  },
+  "engines": {
+    "node": ">= 8.17.0"
+  },
+  "scripts": {
+    "start": "ts-node ./src/lib/app.ts",
+    "build": "tsc",
+    "clean": "rm -rf ./dist",
+    "test": "mocha --require ts-node/register src/test/*_spec.ts"
+  },
+  "keywords": [
+    "unit-test"
+  ],
+  "author": "yuto-yuto",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.2.12",
+    "@types/mocha": "^8.0.3",
+    "@types/node": "^12.0.0",
+    "@types/sinon": "^9.0.5",
+    "chai": "^4.2.0",
+    "mocha": "^8.1.3",
+    "sinon": "^9.0.3",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {}
+}
