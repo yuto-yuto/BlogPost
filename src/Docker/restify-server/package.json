@@ -1,0 +1,24 @@
+{
+  "name": "restify-server",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuto-yuto/BlogPost"
+  },
+  "description": "restify server to send data to log-server",
+  "main": "index.js",
+  "scripts": {
+    "dstart": "docker container run --rm -p 8002:80 --name restify-server --network log-test-nat restify-server",
+    "build": "tsc",
+    "dbuild": "docker image build -t restify-server .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "yuto-yuto",
+  "license": "MIT",
+  "dependencies": {
+    "restify": "^8.5.1"
+  },
+  "devDependencies": {
+    "@types/restify": "^8.4.2"
+  }
+}

@@ -8,7 +8,7 @@
   "description": "For logging by REST API",
   "main": "index.js",
   "scripts": {
-    "dstart": "docker container run --rm -p 8001:80 --name log-server log-server",
+    "dstart": "docker container run --rm -p 8001:80 --name log-server --network log-test-nat log-server",
     "build": "tsc",
     "dbuild": "docker image build -t log-server .",
     "test": "echo \"Error: no test specified\" && exit 1"
