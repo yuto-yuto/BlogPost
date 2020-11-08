@@ -1,0 +1,25 @@
+version: "3.7"
+
+services: 
+
+    log-server:
+        image:  log-server
+        ports: 
+            - "80"
+        networks:
+            - app-net
+    
+    restify-server: 
+        image: restify-server
+        ports: 
+            - "8002:80"
+        depends_on: 
+            - log-server
+        networks:
+            - app-net
+            
+networks:
+    app-net:
+        external:
+            name: log-test-nat
+
