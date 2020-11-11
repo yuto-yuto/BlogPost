@@ -1,0 +1,25 @@
+{
+  "name": "health-check-server",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuto-yuto/BlogPost"
+  },
+  "description": "health-check-server",
+  "main": "index.js",
+  "scripts": {
+    "dstart": "docker container run --rm -p 8003:80 --name health-check-server --network log-test-nat health-check-server",
+    "build": "tsc",
+    "dbuild": "docker image build -t health-check-server .",
+    "dbuild2": "docker image build -t health-check-server -f Dockerfile.v2 .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "yuto-yuto",
+  "license": "MIT",
+  "dependencies": {
+    "restify": "^8.5.1"
+  },
+  "devDependencies": {
+    "@types/restify": "^8.4.2"
+  }
+}
