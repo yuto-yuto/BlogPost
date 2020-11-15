@@ -1,0 +1,18 @@
+version: "3.7"
+
+services: 
+    show-env:
+        env_file: 
+         - ./config/dev.env
+
+    log-server:
+        ports: 
+            - "8001:80"
+    
+    restify-server: 
+        ports: 
+            - "8002:80"
+
+secrets:
+    test-secrets:
+        file: ./config/secrets-dev.json
