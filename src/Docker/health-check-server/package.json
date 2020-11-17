@@ -10,8 +10,8 @@
   "scripts": {
     "dstart": "docker container run --rm -p 8003:80 --name health-check-server --network log-test-nat health-check-server",
     "build": "tsc",
-    "dbuild": "docker image build -t health-check-server .",
-    "dbuild2": "docker image build -t health-check-server -f Dockerfile.v2 .",
+    "dbuild": "docker image build -t health-check-server:v1 .",
+    "dbuild2": "docker image build -t health-check-server:v2 -f Dockerfile.v2 .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "yuto-yuto",
