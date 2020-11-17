@@ -1,0 +1,43 @@
+version: "3.7"
+
+services:
+  health-check-server:  
+    image: health-check-server:v2
+    container_name: health-check-server
+    ports: 
+      - "8003-8010:80"
+    depends_on: 
+      - log-server
+    healthcheck:
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 1m30s
+    networks:
+      - app-net
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 10M
+
+  log-server:
+    image:  log-server
+    container_name: log-server
+    ports: 
+      - "8001:80"
+    networks:
+      - app-net
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 100M
+
+networks:
+  app-net:
+    external: true
+    # name: log-test-nat
+    name: swarm-test-net
