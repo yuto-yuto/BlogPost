@@ -8,7 +8,8 @@
   "description": "health-check-server",
   "main": "index.js",
   "scripts": {
-    "dstart": "docker container run --rm -p 8003:80 --name health-check-server --network log-test-nat health-check-server",
+    "dstart": "docker container run --rm -p 8003:80 --name health-check-server --network log-test-nat health-check-server:v1",
+    "dstart2": "docker container run --rm -p 8003:80 --name health-check-server --network log-test-nat health-check-server:v2",
     "build": "tsc",
     "dbuild": "docker image build -t health-check-server:v1 .",
     "dbuild2": "docker image build -t health-check-server:v2 -f Dockerfile.v2 .",
