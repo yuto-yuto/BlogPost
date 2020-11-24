@@ -1,0 +1,5 @@
+version: "3.7"
+
+services: 
+    test-app:
+        image: test-app:v2

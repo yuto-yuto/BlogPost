@@ -1,0 +1,7 @@
+FROM yuto/nodejs
+EXPOSE 80
+CMD [ "node", "/src/app.js" ]
+HEALTHCHECK --interval=5s --timeout=5s --start-period=10s --retries=3 \
+            CMD curl --fail http://localhost/status || exit 1
+COPY ./app-v2.js /src/app.js
+

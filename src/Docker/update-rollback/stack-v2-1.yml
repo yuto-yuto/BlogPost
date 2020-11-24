@@ -1,0 +1,26 @@
+networks:
+  app-net:
+    name: update-rollback-network
+services:
+  poke-app:
+    deploy:
+      replicas: 6
+    environment:
+      TEST_APP_URL: http://test-app
+    image: poke-app:v1
+    networks:
+      app-net: {}
+    ports:
+    - published: 8888
+      target: 80
+  test-app:
+    deploy:
+      mode: global
+    image: test-app:v2
+    networks:
+      app-net: {}
+    ports:
+    - mode: host
+      target: 80
+version: '3.7'
+

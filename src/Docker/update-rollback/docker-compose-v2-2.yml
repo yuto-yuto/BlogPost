@@ -1,0 +1,9 @@
+version: "3.7"
+
+services: 
+    test-app:
+        image: test-app:v2
+        deploy:
+            update_config:
+                monitor: 10s
+                order: start-first

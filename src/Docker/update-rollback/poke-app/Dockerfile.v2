@@ -1,0 +1,12 @@
+FROM yuto/nodejs
+EXPOSE 80
+
+ENV TEST_APP_URL="http://test-app/"
+
+CMD curl --fail ${TEST_APP_URL} && \
+    node ./src/poke.js
+HEALTHCHECK --interval=5s --timeout=30s --start-period=5s --retries=3 \
+CMD test ${HEALTH} = "GOOD"
+
+COPY ./poke.js /src/poke.js
+

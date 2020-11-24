@@ -1,0 +1,16 @@
+version: "3.7"
+
+services: 
+    test-app:
+        image: test-app:v2
+    
+    poke-app:
+        image: poke-app:v2
+        environment: 
+            - HEALTH=GOOD
+        deploy:
+            update_config:
+                parallelism: 2
+                monitor: 60s
+                failure_action: rollback
+                order: start-first

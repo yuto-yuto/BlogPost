@@ -1,0 +1,19 @@
+version: "3.7"
+
+services: 
+    test-app:
+        ports: 
+            - "8080:80"
+
+    poke-app:
+        image: poke-app:v2
+        environment: 
+            - HEALTH=GOOD
+        depends_on: 
+            - test-app
+        ports:
+            - "8899:80"
+
+networks:
+    app-net:
+        name: update-rollback-network

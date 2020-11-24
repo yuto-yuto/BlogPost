@@ -1,0 +1,16 @@
+version: "3.7"
+
+x-labels: &app-net
+    networks:
+        - app-net
+
+services: 
+    test-app:
+        image: test-app:v1
+        <<: *app-net
+
+    poke-app:
+        image: poke-app:v1
+        environment: 
+            - TEST_APP_URL=http://test-app
+        <<: *app-net

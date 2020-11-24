@@ -1,0 +1,16 @@
+version: "3.7"
+
+services: 
+    test-app:
+        ports: 
+            - "8080:80"
+
+    poke-app:
+        depends_on: 
+            - test-app
+        ports:
+            - "8888:80"
+
+networks:
+    app-net:
+        name: update-rollback-network
