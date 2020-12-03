@@ -1,0 +1,5 @@
+FROM alpine:latest
+
+COPY ./src /src/
+WORKDIR /src
+RUN rm README.md big-image.jpg
