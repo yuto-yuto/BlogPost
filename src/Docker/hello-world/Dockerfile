@@ -1,4 +1,4 @@
-FROM yuto/nodejs-dev as builder
+FROM yutona/nodejs-dev as builder
 
 RUN npm install typescript -g
 WORKDIR /hello-world
@@ -9,7 +9,7 @@ COPY ./tsconfig.json .
 COPY ./lib/ ./lib/
 RUN npm run build
 
-FROM yuto/nodejs
+FROM yutona/nodejs
 WORKDIR /hello-world
 CMD [ "node", "./dist/app.js" ]
 COPY --from=builder /hello-world/dist/ /hello-world/dist/

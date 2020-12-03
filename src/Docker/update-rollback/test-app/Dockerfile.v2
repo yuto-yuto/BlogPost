@@ -1,4 +1,4 @@
-FROM yuto/nodejs
+FROM yutona/nodejs
 EXPOSE 80
 CMD [ "node", "/src/app.js" ]
 HEALTHCHECK --interval=5s --timeout=5s --start-period=10s --retries=3 \

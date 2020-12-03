@@ -1,4 +1,4 @@
-FROM yuto/nodejs-dev
+FROM yutona/nodejs-dev
 
 RUN npm install typescript -g
 WORKDIR /src

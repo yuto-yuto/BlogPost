@@ -1,4 +1,4 @@
-FROM yuto/nodejs
+FROM yutona/nodejs
 EXPOSE 80
 ENV LOGGER_API_URL="http://log-server:80/"
 WORKDIR /app

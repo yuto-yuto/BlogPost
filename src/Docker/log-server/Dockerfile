@@ -1,4 +1,4 @@
-FROM yuto/nodejs
+FROM yutona/nodejs
 EXPOSE 80
 WORKDIR /app
 COPY ./node_modules/ /app/node_modules/

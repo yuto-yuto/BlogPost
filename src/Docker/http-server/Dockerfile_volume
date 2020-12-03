@@ -1,4 +1,4 @@
-FROM yuto/nodejs-dev as builder
+FROM yutona/nodejs-dev as builder
 
 RUN npm install typescript -g
 WORKDIR /http-server
@@ -9,7 +9,7 @@ COPY . .
 
 RUN npm run build
 
-FROM yuto/nodejs
+FROM yutona/nodejs
 EXPOSE 80
 VOLUME [ "/data" ]
 CMD [ "node", "./http-server/dist/app.js" ]

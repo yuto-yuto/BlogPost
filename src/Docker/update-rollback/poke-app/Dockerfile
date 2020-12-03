@@ -1,4 +1,4 @@
-FROM yuto/nodejs
+FROM yutona/nodejs
 EXPOSE 80
 
 ENV TEST_APP_URL="http://test-app/"
