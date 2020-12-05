@@ -1,0 +1,5 @@
+FROM alpine:latest as prepare
+COPY ./src /src/
+
+FROM alpine:latest 
+COPY --from=prepare /src/app.js /src/
