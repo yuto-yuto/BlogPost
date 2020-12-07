@@ -5,6 +5,19 @@ services:
     image: timewriter
     depends_on: 
       - fluentd
+    environment: 
+      - INTERVAL=5000
+    logging:
+      driver: "fluentd"
+      options:
+        tag: "logging-test.{{.ImageName}}"
+
+  random-number:
+    image: random-number:v1
+    depends_on: 
+      - fluentd
+    environment: 
+      - INTERVAL=3000
     logging:
       driver: "fluentd"
       options:
@@ -14,8 +27,7 @@ services:
     image: fluent/fluentd:v1.11-1
     volumes:
       - ./fluentd/conf:/fluentd/etc
+      - ./fluentd/data:/fluentd/log
     ports:
       - "24224:24224"
       - "24224:24224/udp"
-    environment: 
-      - FLUENT_CONF=fluent.conf

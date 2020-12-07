@@ -1,0 +1,6 @@
+version: "3.7"
+
+services:
+  fluentd: 
+    environment:
+      - FLUENTD_CONF=exclude-timer.conf

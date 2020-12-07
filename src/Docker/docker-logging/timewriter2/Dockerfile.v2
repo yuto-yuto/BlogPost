@@ -1,4 +1,5 @@
 FROM yutona/nodejs
 
 CMD : >> /test.log && tail -f /test.log && node /src/app.js
+ENV INTERVAL=10
 COPY ./app.js /src/app.js

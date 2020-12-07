@@ -1,4 +1,5 @@
 const fs = require("fs");
+const interval = parseInt(process.env.INTERVAL, 10);
 
 setInterval(() => {
     const date = new Date();
@@ -16,7 +17,7 @@ setInterval(() => {
             console.error(err);
         }
     });
-}, 10);
+}, interval);
 
 function toTwoDigit(value) {
     return value.toString().padStart(2, "0");

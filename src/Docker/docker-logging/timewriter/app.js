@@ -1,3 +1,5 @@
+const interval = parseInt(process.env.INTERVAL, 10);
+
 setInterval(() => {
     const date = new Date();
     const datetime =
@@ -10,7 +12,7 @@ setInterval(() => {
         + `${date.getMilliseconds()}`;
 
     console.log(datetime);
-}, 10);
+}, interval);
 
 function toTwoDigit(value) {
     return value.toString().padStart(2, "0");

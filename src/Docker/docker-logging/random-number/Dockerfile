@@ -1,5 +1,5 @@
 FROM yutona/nodejs
 
 CMD node /src/app.js
-ENV INTERVAL=10
+ENV INTERVAL=1000
 COPY ./app.js /src/app.js
