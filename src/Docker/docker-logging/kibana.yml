@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+  kibana:
+    image: kibana:7.9.3
+    ports:
+      - "5601:5601"
