@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  fluentd: 
+    image: fluentd
+    environment:
+      - FLUENTD_CONF=elasticsearch.conf
+
+  elasticsearch:
+    image: elasticsearch:7.9.3
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+      - "9300:9300"
