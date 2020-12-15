@@ -1,0 +1,36 @@
+version: "3.7"
+
+x-labels: &infra-net
+    networks:
+        - infra-net
+
+services: 
+    gogs:
+      image: gogs/gogs:0.12.3
+      ports: 
+        - "3000:3000"
+      volumes: 
+        - ./gogs/data:/data
+      <<: *infra-net
+
+    registry:
+      image: registry:2.7.1
+      ports: 
+        - "5000:5000"
+      volumes: 
+        - ./registry/data:/data
+        - ./registry/config.yml:/etc/docker/registry/config.yml
+      <<: *infra-net
+
+    jenkins:
+      image: jenkins/jenkins:2.263.1-lts-slim
+      ports: 
+        - "8080:8080"
+        - "50000:50000"
+      volumes: 
+        - ./jenkins/home:/var/jenkins_home
+      <<: *infra-net
+
+networks:
+  infra-net:
+    name: infra-net

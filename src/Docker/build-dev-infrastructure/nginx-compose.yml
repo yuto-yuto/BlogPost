@@ -1,0 +1,42 @@
+version: "3.7"
+
+x-labels: &infra-net
+    networks:
+        - infra-net
+
+services: 
+    gogs:
+      image: gogs/gogs:0.12.3
+      volumes: 
+        - ./gogs/data:/data
+      <<: *infra-net
+
+    registry:
+      image: registry:2.7.1
+      volumes: 
+        - ./registry/data:/data
+        - ./registry/config.yml:/etc/docker/registry/config.yml
+      <<: *infra-net
+
+    jenkins:
+      image: jenkins/jenkins:2.263.1-lts-slim
+      volumes: 
+        - ./jenkins/home:/var/jenkins_home
+      <<: *infra-net
+      
+    nginx:
+      image: nginx:1.18.0
+      volumes:
+        - ./nginx/conf.d:/etc/nginx/conf.d
+      ports:
+        - "80:80"
+        - "443:443"
+      depends_on:
+        - jenkins
+        - registry
+        - gogs
+      <<: *infra-net
+
+networks:
+  infra-net:
+    name: infra-net
