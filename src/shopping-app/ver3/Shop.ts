@@ -25,21 +25,14 @@ enum Prise {
 export class Shop {
     public run() {
         console.log("Welcome to special shop. This is what you can do.");
-        let commandList = `${Command.Command}: list the available commands\n`;
-        commandList += `${Command.List}: show the item list and prises\n`;
-        commandList += `${Command.Add}: add the item to shopping cart. Format is 'add <item name> <number>'\n`;
-        commandList += `${Command.Remove}: remove the item from the shopping cart. Format is 'remove <item name> <number>'\n`;
-        commandList += `${Command.Cart}: list items in shopping cart\n`;
-        commandList += `${Command.Pay}: pay the cost and receive change. Format is 'pay <money>'\n`;
-        console.log(commandList);
-
+        this.displayCommandList();
         const shoppingCart = new Map<string, number>();
 
         while (true) {
             const commandString = readSync.question("Input command: ");
             const args = commandString.split(" ");
             if (args[0] === Command.Command) {
-                console.log(commandList);
+                this.displayCommandList();
             } else if (args[0] === Command.List) {
                 let itemList = `${Item.Apple}, ${Prise.Apple}\n`;
                 itemList += `${Item.Water}, ${Prise.Water}\n`;
@@ -136,5 +129,15 @@ export class Shop {
                 console.error("Undefined command.");
             }
         }
+    }
+
+    private displayCommandList() {
+        let commandList = `${Command.Command}: list the available commands\n`;
+        commandList += `${Command.List}: show the item list and prises\n`;
+        commandList += `${Command.Add}: add the item to shopping cart. Format is 'add <item name> <number>'\n`;
+        commandList += `${Command.Remove}: remove the item from the shopping cart. Format is 'remove <item name> <number>'\n`;
+        commandList += `${Command.Cart}: list items in shopping cart\n`;
+        commandList += `${Command.Pay}: pay the cost and receive change. Format is 'pay <money>'\n`;
+        console.log(commandList);
     }
 }
