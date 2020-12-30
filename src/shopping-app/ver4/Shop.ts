@@ -52,66 +52,31 @@ export class Shop {
         console.log(itemList);
     }
 
-    private pay() {
-        if (args[1].slice(-1) === "0") {
-            let totalPrice = 0;
-            this.shoppingCart.forEach((value, key) => {
-                if (key === Item.Apple) {
-                    totalPrice += Price.Apple * value;
-                } else if (key === Item.Water) {
-                    totalPrice += Price.Water * value;
-                } else if (key === Item.Coffee) {
-                    totalPrice += Price.Coffee * value;
-                }
-            });
-            const change = parseInt(args[1]) - totalPrice;
-            const coinList = new Map<string, number>([
-                ["1000", 0],
-                ["500", 0],
-                ["100", 0],
-                ["50", 0],
-                ["10", 0],
-            ]);
-            let rest = change;
-            coinList.forEach((value, key) => {
-                if (rest > 0) {
-                    const numberOfCoins = Math.floor(rest / parseInt(key));
-                    if (numberOfCoins > 0) {
-                        rest = change % parseInt(key);
-                        coinList.set(key, numberOfCoins);
-                    }
-                }
-            });
-            coinList.forEach((value, key) => {
-                if (value > 0) {
-                    console.log(`${key}: ${value}`);
-                }
-            });
-            console.log(`change: ${change}`);
-            this.shoppingCart.clear();
-        } else {
-            console.error("Ones place digit must not 0.");
-        }
-    }
-
     private executeCommand(args: string[]) {
-        if (args[0] === Command.Command) {
-            this.displayCommandList();
-        } else if (args[0] === Command.List) {
-            this.displayItemList();
-        } else if (args[0] === Command.Add) {
-            this.addItemToCart(args[1], parseInt(args[2]));
-        } else if (args[0] === Command.Remove) {
-            this.removeItemFromCart(args[1], parseInt(args[2]))
-        } else if (args[0] === Command.Cart) {
-            this.showItemsInCart();
-        } else if (args[0] === Command.Pay) {
-            this.pay();
-        } else if (args[0] === Command.Exit) {
-            console.log("Thank you for your shopping.")
-            process.exit();
-        } else {
-            console.error("Undefined command.");
+        switch (args[0]) {
+            case Command.Command:
+                this.displayCommandList();
+                break;
+            case Command.List:
+                this.displayItemList();
+                break;
+            case Command.Add:
+                this.addItemToCart(args[1], parseInt(args[2]));
+                break;
+            case Command.Remove:
+                this.removeItemFromCart(args[1], parseInt(args[2]))
+                break;
+            case Command.Cart:
+                this.showItemsInCart();
+                break;
+            case Command.Pay:
+                this.pay(args[1]);
+                break;
+            case Command.Exit:
+                console.log("Thank you for your shopping.")
+                process.exit();
+            default:
+                console.error("Undefined command.");
         }
     }
 
@@ -159,5 +124,47 @@ export class Shop {
         const message = cart + `\ntotal number: ${totalNumber}\n`
             + `total price: ${totalPrice}`;
         console.log(message);
+    }
+
+    private pay(amountOfMoney: string) {
+        if (amountOfMoney.slice(-1) === "0") {
+            let totalPrice = 0;
+            this.shoppingCart.forEach((value, key) => {
+                if (key === Item.Apple) {
+                    totalPrice += Price.Apple * value;
+                } else if (key === Item.Water) {
+                    totalPrice += Price.Water * value;
+                } else if (key === Item.Coffee) {
+                    totalPrice += Price.Coffee * value;
+                }
+            });
+            const change = parseInt(amountOfMoney) - totalPrice;
+            const coinList = new Map<string, number>([
+                ["1000", 0],
+                ["500", 0],
+                ["100", 0],
+                ["50", 0],
+                ["10", 0],
+            ]);
+            let rest = change;
+            coinList.forEach((value, key) => {
+                if (rest > 0) {
+                    const numberOfCoins = Math.floor(rest / parseInt(key));
+                    if (numberOfCoins > 0) {
+                        rest = change % parseInt(key);
+                        coinList.set(key, numberOfCoins);
+                    }
+                }
+            });
+            coinList.forEach((value, key) => {
+                if (value > 0) {
+                    console.log(`${key}: ${value}`);
+                }
+            });
+            console.log(`change: ${change}`);
+            this.shoppingCart.clear();
+        } else {
+            console.error("Ones place digit must not 0.");
+        }
     }
 }
