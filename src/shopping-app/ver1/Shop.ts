@@ -4,7 +4,7 @@ export class Shop {
     public run() {
         console.log("Welcome to special shop. This is what you can do.");
         let commandList = "command: list the available commands\n";
-        commandList += "list: show the item list and prises\n";
+        commandList += "list: show the item list and prices\n";
         commandList += "add: add the item to shopping cart. Format is `add <item name> <number>`\n";
         commandList += "remove: remove the item from the shopping cart. Format is `remove <item name> <number>`\n";
         commandList += "cart: list items in shopping cart\n";

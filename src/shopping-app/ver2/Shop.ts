@@ -16,7 +16,7 @@ enum Item {
     Coffee = "coffee",
 }
 
-enum Prise {
+enum Price {
     Apple = 110,
     Water = 90,
     Coffee = 150,
@@ -26,7 +26,7 @@ export class Shop {
     public run() {
         console.log("Welcome to special shop. This is what you can do.");
         let commandList = `${Command.Command}: list the available commands\n`;
-        commandList += `${Command.List}: show the item list and prises\n`;
+        commandList += `${Command.List}: show the item list and prices\n`;
         commandList += `${Command.Add}: add the item to shopping cart. Format is 'add <item name> <number>'\n`;
         commandList += `${Command.Remove}: remove the item from the shopping cart. Format is 'remove <item name> <number>'\n`;
         commandList += `${Command.Cart}: list items in shopping cart\n`;
@@ -41,9 +41,9 @@ export class Shop {
             if (args[0] === Command.Command) {
                 console.log(commandList);
             } else if (args[0] === Command.List) {
-                let itemList = `${Item.Apple}, ${Prise.Apple}\n`;
-                itemList += `${Item.Water}, ${Prise.Water}\n`;
-                itemList += `${Item.Coffee}, ${Prise.Coffee}\n`;
+                let itemList = `${Item.Apple}, ${Price.Apple}\n`;
+                itemList += `${Item.Water}, ${Price.Water}\n`;
+                itemList += `${Item.Coffee}, ${Price.Coffee}\n`;
                 console.log(itemList);
             } else if (args[0] === Command.Add) {
                 if (args[1] === Item.Apple) {
@@ -78,11 +78,11 @@ export class Shop {
                     cart += `${key}: ${value}\n`;
                     totalNumber += value;
                     if (key === Item.Apple) {
-                        totalPrice += Prise.Apple * value;
+                        totalPrice += Price.Apple * value;
                     } else if (key === Item.Water) {
-                        totalPrice += Prise.Water * value;
+                        totalPrice += Price.Water * value;
                     } else if (key === Item.Coffee) {
-                        totalPrice += Prise.Coffee * value;
+                        totalPrice += Price.Coffee * value;
                     }
                 });
 
@@ -94,11 +94,11 @@ export class Shop {
                     let totalPrice = 0;
                     shoppingCart.forEach((value, key) => {
                         if (key === Item.Apple) {
-                            totalPrice += Prise.Apple * value;
+                            totalPrice += Price.Apple * value;
                         } else if (key === Item.Water) {
-                            totalPrice += Prise.Water * value;
+                            totalPrice += Price.Water * value;
                         } else if (key === Item.Coffee) {
-                            totalPrice += Prise.Coffee * value;
+                            totalPrice += Price.Coffee * value;
                         }
                     });
                     const change = parseInt(args[1]) - totalPrice;
