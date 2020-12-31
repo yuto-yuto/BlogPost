@@ -105,6 +105,14 @@ export class Shop {
         const totalNumber = Array.from(this.shoppingCart.values())
             .reduce((acc, cur) => acc + cur, 0);
 
+        let totalPrice = this.calculateTotalPrice();
+
+        const message = items + `\ntotal number: ${totalNumber}\n`
+            + `total price: ${totalPrice}`;
+        console.log(message);
+    }
+
+    private calculateTotalPrice() {
         let totalPrice = 0;
         this.shoppingCart.forEach((value, key) => {
             switch (key) {
@@ -121,51 +129,47 @@ export class Shop {
                     console.error(`Undefined item exists in shopping cart [${key}]`);
             }
         });
-
-        const message = items + `\ntotal number: ${totalNumber}\n`
-            + `total price: ${totalPrice}`;
-        console.log(message);
+        return totalPrice;
     }
 
     private pay(amountOfMoney: string) {
-        if (amountOfMoney.slice(-1) === "0") {
-            let totalPrice = 0;
-            this.shoppingCart.forEach((value, key) => {
-                if (key === Item.Apple) {
-                    totalPrice += Price.Apple * value;
-                } else if (key === Item.Water) {
-                    totalPrice += Price.Water * value;
-                } else if (key === Item.Coffee) {
-                    totalPrice += Price.Coffee * value;
-                }
-            });
-            const change = parseInt(amountOfMoney) - totalPrice;
-            const coinList = new Map<string, number>([
-                ["1000", 0],
-                ["500", 0],
-                ["100", 0],
-                ["50", 0],
-                ["10", 0],
-            ]);
+        if (amountOfMoney.slice(-1) !== "0") {
+            console.error("Ones place digit must not 0.");
+            return;
+        }
+        const totalPrice = this.calculateTotalPrice();
+        const change = parseInt(amountOfMoney) - totalPrice;
+        const coinList = new Map<string, number>([
+            ["1000", 0],
+            ["500", 0],
+            ["100", 0],
+            ["50", 0],
+            ["10", 0],
+        ]);
+        calculateNumberOfCoins();
+        showNumberOfCoins();
+        console.log(`change: ${change}`);
+        this.shoppingCart.clear();
+
+        function calculateNumberOfCoins() {
             let rest = change;
             coinList.forEach((value, key) => {
                 if (rest > 0) {
                     const numberOfCoins = Math.floor(rest / parseInt(key));
                     if (numberOfCoins > 0) {
-                        rest = change % parseInt(key);
+                        rest = rest % parseInt(key);
                         coinList.set(key, numberOfCoins);
                     }
                 }
             });
+        }
+
+        function showNumberOfCoins() {
             coinList.forEach((value, key) => {
                 if (value > 0) {
                     console.log(`${key}: ${value}`);
                 }
             });
-            console.log(`change: ${change}`);
-            this.shoppingCart.clear();
-        } else {
-            console.error("Ones place digit must not 0.");
         }
     }
 }

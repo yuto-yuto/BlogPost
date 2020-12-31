@@ -16,6 +16,7 @@
     "ver1": "node ./dist/ver1/app.js",
     "ver2": "node ./dist/ver2/app.js",
     "ver3": "node ./dist/ver3/app.js",
+    "ver4": "node ./dist/ver4/app.js",
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "test": "mocha --recursive --require ts-node/register src/**/*_spec.ts"
