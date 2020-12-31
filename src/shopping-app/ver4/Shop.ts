@@ -100,22 +100,29 @@ export class Shop {
     }
 
     private showItemsInCart() {
-        let cart = "";
-        let totalNumber = 0;
+        const items = Array.from(this.shoppingCart.entries())
+            .reduce((acc, [key, value]) => `${key}: ${value}\n`, "")
+        const totalNumber = Array.from(this.shoppingCart.values())
+            .reduce((acc, cur) => acc + cur, 0);
+
         let totalPrice = 0;
         this.shoppingCart.forEach((value, key) => {
-            cart += `${key}: ${value}\n`;
-            totalNumber += value;
-            if (key === Item.Apple) {
-                totalPrice += Price.Apple * value;
-            } else if (key === Item.Water) {
-                totalPrice += Price.Water * value;
-            } else if (key === Item.Coffee) {
-                totalPrice += Price.Coffee * value;
+            switch (key) {
+                case Item.Apple:
+                    totalPrice += Price.Apple * value;
+                    break;
+                case Item.Water:
+                    totalPrice += Price.Water * value;
+                    break;
+                case Item.Coffee:
+                    totalPrice += Price.Coffee * value;
+                    break;
+                default:
+                    console.error(`Undefined item exists in shopping cart [${key}]`);
             }
         });
 
-        const message = cart + `\ntotal number: ${totalNumber}\n`
+        const message = items + `\ntotal number: ${totalNumber}\n`
             + `total price: ${totalPrice}`;
         console.log(message);
     }
