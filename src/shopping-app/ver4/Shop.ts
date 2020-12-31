@@ -45,13 +45,6 @@ export class Shop {
         console.log(commandList);
     }
 
-    private displayItemList() {
-        let itemList = `${Item.Apple}, ${Price.Apple}\n`;
-        itemList += `${Item.Water}, ${Price.Water}\n`;
-        itemList += `${Item.Coffee}, ${Price.Coffee}\n`;
-        console.log(itemList);
-    }
-
     private executeCommand(args: string[]) {
         switch (args[0]) {
             case Command.Command:
@@ -80,19 +73,20 @@ export class Shop {
         }
     }
 
+    private displayItemList() {
+        let itemList = `${Item.Apple}, ${Price.Apple}\n`;
+        itemList += `${Item.Water}, ${Price.Water}\n`;
+        itemList += `${Item.Coffee}, ${Price.Coffee}\n`;
+        console.log(itemList);
+    }
+
     private addItemToCart(itemName: string, numberOfItems: number) {
-        if (itemName === Item.Apple) {
-            const currentNumber = this.shoppingCart.get(Item.Apple) || 0;
-            this.shoppingCart.set(Item.Apple, currentNumber + numberOfItems);
-        } else if (itemName === Item.Water) {
-            const currentNumber = this.shoppingCart.get(Item.Water) || 0;
-            this.shoppingCart.set(Item.Water, currentNumber + numberOfItems);
-        } else if (itemName === Item.Coffee) {
-            const currentNumber = this.shoppingCart.get(Item.Coffee) || 0;
-            this.shoppingCart.set(Item.Coffee, currentNumber + numberOfItems);
-        } else {
+        if (!(Object.values(Item) as string[]).includes(itemName)) {
             console.log(`${itemName} doesn't exist.`);
+            return;
         }
+        const currentNumber = this.shoppingCart.get(itemName) || 0;
+        this.shoppingCart.set(itemName, currentNumber + numberOfItems);
     }
 
     private removeItemFromCart(itemName: string, numberOfItems: number) {
