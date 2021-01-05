@@ -1,4 +1,5 @@
 import * as readSync from "readline-sync";
+import { ItemName } from "./Item";
 
 enum Command {
     List = "list",
@@ -8,12 +9,6 @@ enum Command {
     Pay = "pay",
     Command = "command",
     Exit = "exit",
-}
-
-enum Item {
-    Apple = "apple",
-    Water = "water",
-    Coffee = "coffee",
 }
 
 enum Price {
@@ -74,14 +69,14 @@ export class Shop {
     }
 
     private displayItemList() {
-        let itemList = `${Item.Apple}, ${Price.Apple}\n`;
-        itemList += `${Item.Water}, ${Price.Water}\n`;
-        itemList += `${Item.Coffee}, ${Price.Coffee}\n`;
+        let itemList = `${ItemName.Apple}, ${Price.Apple}\n`;
+        itemList += `${ItemName.Water}, ${Price.Water}\n`;
+        itemList += `${ItemName.Coffee}, ${Price.Coffee}\n`;
         console.log(itemList);
     }
 
     private addItemToCart(itemName: string, numberOfItems: number) {
-        if (!(Object.values(Item) as string[]).includes(itemName)) {
+        if (!(Object.values(ItemName) as string[]).includes(itemName)) {
             console.log(`${itemName} doesn't exist.`);
             return;
         }
@@ -116,13 +111,13 @@ export class Shop {
         let totalPrice = 0;
         this.shoppingCart.forEach((value, key) => {
             switch (key) {
-                case Item.Apple:
+                case ItemName.Apple:
                     totalPrice += Price.Apple * value;
                     break;
-                case Item.Water:
+                case ItemName.Water:
                     totalPrice += Price.Water * value;
                     break;
-                case Item.Coffee:
+                case ItemName.Coffee:
                     totalPrice += Price.Coffee * value;
                     break;
                 default:
