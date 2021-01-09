@@ -59,9 +59,9 @@ describe("ShoppingCart", () => {
             const result = () => cart.removeItem(ItemName.Apple, 0);
             expect(result).to.throw();
         });
-        it("should not throw an error when no item exists", () => {
+        it("should throw an error when specified item doesn't exist", () => {
             const result = () => cart.removeItem(ItemName.Apple, 1);
-            expect(result).not.to.throw();
+            expect(result).to.throw();
         });
         it("should remove one if number of items is 2", () => {
             cart.addItem(ItemName.Apple, 2);

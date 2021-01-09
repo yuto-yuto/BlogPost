@@ -43,7 +43,7 @@ export class ShoppingCart {
 
         const currentNumber = this.items.get(itemName);
         if (!currentNumber) {
-            return;
+            throw new Error(`The item doesn't exist in the cart [${itemName}]`);
         }
 
         const result = currentNumber - Math.floor(numberOfItems);

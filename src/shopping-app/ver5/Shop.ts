@@ -86,13 +86,7 @@ export class Shop {
     }
 
     private removeItemFromCart(itemName: string, numberOfItems: number) {
-        const currentNumber = this.shoppingCart.get(itemName) || 0;
-        const result = currentNumber - numberOfItems;
-        if (result <= 0) {
-            this.shoppingCart.delete(itemName);
-        } else {
-            this.shoppingCart.set(itemName, result);
-        }
+        this.shoppingCartClass.removeItem(itemName as ItemName,numberOfItems);
     }
 
     private showItemsInCart() {
