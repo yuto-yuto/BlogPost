@@ -23,7 +23,7 @@ export class ShoppingCart {
     }
 
     public addItem(itemName: ItemName, numberOfItems: number): void {
-        if (numberOfItems <= 0) { 
+        if (numberOfItems <= 0) {
             throw new Error("numberOfItems must be 1 or bigger number");
         }
         const currentNumber = this.items.get(itemName) || 0;
@@ -59,5 +59,9 @@ export class ShoppingCart {
             .map(([name, numberOfItems]) => {
                 return { name, numberOfItems }
             });
+    }
+
+    public clear(): void {
+        this.items.clear();
     }
 }

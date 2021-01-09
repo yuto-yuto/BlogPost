@@ -19,7 +19,6 @@ enum Price {
 }
 
 export class Shop {
-    private shoppingCart = new Map<string, number>();
     private shoppingCartClass = new ShoppingCart();
     public run() {
         console.log("Welcome to special shop. This is what you can do.");
@@ -99,33 +98,12 @@ export class Shop {
         console.log(message);
     }
 
-    private calculateTotalPrice() {
-        let totalPrice = 0;
-        this.shoppingCart.forEach((value, key) => {
-            switch (key) {
-                case ItemName.Apple:
-                    totalPrice += Price.Apple * value;
-                    break;
-                case ItemName.Water:
-                    totalPrice += Price.Water * value;
-                    break;
-                case ItemName.Coffee:
-                    totalPrice += Price.Coffee * value;
-                    break;
-                default:
-                    console.error(`Undefined item exists in shopping cart [${key}]`);
-            }
-        });
-        return totalPrice;
-    }
-
     private pay(amountOfMoney: string) {
         if (amountOfMoney.slice(-1) !== "0") {
             console.error("Ones place digit must not 0.");
             return;
         }
-        const totalPrice = this.calculateTotalPrice();
-        const change = parseInt(amountOfMoney, 10) - totalPrice;
+        const change = parseInt(amountOfMoney, 10) - this.shoppingCartClass.totalPrice;
         const coinList = new Map<string, number>([
             ["1000", 0],
             ["500", 0],
@@ -136,7 +114,7 @@ export class Shop {
         calculateNumberOfCoins();
         showNumberOfCoins();
         console.log(`change: ${change}`);
-        this.shoppingCart.clear();
+        this.shoppingCartClass.clear();
 
         function calculateNumberOfCoins() {
             let rest = change;
