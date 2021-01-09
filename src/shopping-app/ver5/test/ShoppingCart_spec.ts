@@ -47,6 +47,11 @@ describe("ShoppingCart", () => {
             ];
             expect(result).to.deep.members(expected);
         });
+
+        it("should throw an error when numberOfItem is 0", () => {
+            const result = () => cart.addItem(ItemName.Apple, 0);
+            expect(result).to.throw();
+        });
     });
 
     describe("removeItem", () => {
@@ -86,6 +91,21 @@ describe("ShoppingCart", () => {
             cart.addItem(ItemName.Apple, 4);
             const result = cart.getList();
             expect(result[0]).to.have.keys("name", "numberOfItems");
+        });
+    });
+    describe("totalPrice", () => {
+        it("should sum the price", () => {
+            cart.addItem(ItemName.Apple, 1);
+            cart.addItem(ItemName.Water, 1);
+            expect(cart.totalPrice).to.equal(200)
+        });
+    });
+    describe("totalItemNumber", () => {
+        it("should sum the number", () => {
+            cart.addItem(ItemName.Apple, 2);
+            cart.addItem(ItemName.Water, 1);
+            cart.addItem(ItemName.Coffee, 3);
+            expect(cart.totalItemNumber).to.equal(6)
         });
     });
 });
