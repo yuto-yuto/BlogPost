@@ -56,22 +56,22 @@ export class Shop {
         } else if (args[0] === Command.Add) {
             if (args[1] === Item.Apple) {
                 const currentNumber = this.shoppingCart.get(Item.Apple) || 0;
-                const addedNumber = parseInt(args[2]);
+                const addedNumber = parseInt(args[2], 10);
                 this.shoppingCart.set(Item.Apple, currentNumber + addedNumber);
             } else if (args[1] === Item.Water) {
                 const currentNumber = this.shoppingCart.get(Item.Water) || 0;
-                const addedNumber = parseInt(args[2]);
+                const addedNumber = parseInt(args[2], 10);
                 this.shoppingCart.set(Item.Water, currentNumber + addedNumber);
             } else if (args[1] === Item.Coffee) {
                 const currentNumber = this.shoppingCart.get(Item.Coffee) || 0;
-                const addedNumber = parseInt(args[2]);
+                const addedNumber = parseInt(args[2], 10);
                 this.shoppingCart.set(Item.Coffee, currentNumber + addedNumber);
             } else {
                 console.log(`${args[1]} doesn't exist.`);
             }
         } else if (args[0] === Command.Remove) {
             const currentNumber = this.shoppingCart.get(args[1]) || 0;
-            const removeNumber = parseInt(args[2]);
+            const removeNumber = parseInt(args[2], 10);
             const result = currentNumber - removeNumber;
             if (result <= 0) {
                 this.shoppingCart.delete(args[1]);
@@ -109,7 +109,7 @@ export class Shop {
                         totalPrice += Price.Coffee * value;
                     }
                 });
-                const change = parseInt(args[1]) - totalPrice;
+                const change = parseInt(args[1], 10) - totalPrice;
                 const coinList = new Map<string, number>([
                     ["1000", 0],
                     ["500", 0],
@@ -120,9 +120,9 @@ export class Shop {
                 let rest = change;
                 coinList.forEach((value, key) => {
                     if (rest > 0) {
-                        const numberOfCoins = Math.floor(rest / parseInt(key));
+                        const numberOfCoins = Math.floor(rest / parseInt(key, 10));
                         if (numberOfCoins > 0) {
-                            rest = change % parseInt(key);
+                            rest = change % parseInt(key, 10);
                             coinList.set(key, numberOfCoins);
                         }
                     }

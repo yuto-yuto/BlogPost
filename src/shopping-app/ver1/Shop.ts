@@ -26,22 +26,22 @@ export class Shop {
             } else if (args[0] === "add") {
                 if (args[1] === "apple") {
                     const currentNumber = shoppingCart.get("apple") || 0;
-                    const addedNumber = parseInt(args[2]);
+                    const addedNumber = parseInt(args[2], 10);
                     shoppingCart.set("apple", currentNumber + addedNumber);
                 } else if (args[1] === "water") {
                     const currentNumber = shoppingCart.get("water") || 0;
-                    const addedNumber = parseInt(args[2]);
+                    const addedNumber = parseInt(args[2], 10);
                     shoppingCart.set("water", currentNumber + addedNumber);
                 } else if (args[1] === "coffee") {
                     const currentNumber = shoppingCart.get("coffee") || 0;
-                    const addedNumber = parseInt(args[2]);
+                    const addedNumber = parseInt(args[2], 10);
                     shoppingCart.set("coffee", currentNumber + addedNumber);
                 } else {
                     console.log(`${args[1]} doesn't exist.`);
                 }
             } else if (args[0] === "remove") {
                 const currentNumber = shoppingCart.get(args[1]) || 0;
-                const removeNumber = parseInt(args[2]);
+                const removeNumber = parseInt(args[2], 10);
                 const result = currentNumber - removeNumber;
                 if (result <= 0) {
                     shoppingCart.delete(args[1]);
@@ -79,7 +79,7 @@ export class Shop {
                             totalPrice += 150 * value;
                         }
                     });
-                    const change = parseInt(args[1]) - totalPrice;
+                    const change = parseInt(args[1], 10) - totalPrice;
                     const coinList = new Map<string, number>([
                         ["1000", 0],
                         ["500", 0],
@@ -90,9 +90,9 @@ export class Shop {
                     let rest = change;
                     coinList.forEach((value, key) => {
                         if (rest > 0) {
-                            const numberOfCoins = Math.floor(rest / parseInt(key));
+                            const numberOfCoins = Math.floor(rest / parseInt(key, 10));
                             if (numberOfCoins > 0) {
-                                rest = change % parseInt(key);
+                                rest = change % parseInt(key, 10);
                                 coinList.set(key, numberOfCoins);
                             }
                         }

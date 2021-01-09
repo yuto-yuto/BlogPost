@@ -54,10 +54,10 @@ export class Shop {
                 this.displayItemList();
                 break;
             case Command.Add:
-                this.addItemToCart(args[1], parseInt(args[2]));
+                this.addItemToCart(args[1], parseInt(args[2], 10));
                 break;
             case Command.Remove:
-                this.removeItemFromCart(args[1], parseInt(args[2]))
+                this.removeItemFromCart(args[1], parseInt(args[2], 10))
                 break;
             case Command.Cart:
                 this.showItemsInCart();
@@ -138,7 +138,7 @@ export class Shop {
             return;
         }
         const totalPrice = this.calculateTotalPrice();
-        const change = parseInt(amountOfMoney) - totalPrice;
+        const change = parseInt(amountOfMoney, 10) - totalPrice;
         const coinList = new Map<string, number>([
             ["1000", 0],
             ["500", 0],
@@ -155,9 +155,9 @@ export class Shop {
             let rest = change;
             coinList.forEach((value, key) => {
                 if (rest > 0) {
-                    const numberOfCoins = Math.floor(rest / parseInt(key));
+                    const numberOfCoins = Math.floor(rest / parseInt(key, 10));
                     if (numberOfCoins > 0) {
-                        rest = rest % parseInt(key);
+                        rest = rest % parseInt(key, 10);
                         coinList.set(key, numberOfCoins);
                     }
                 }
