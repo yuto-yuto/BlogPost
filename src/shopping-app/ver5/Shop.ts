@@ -1,5 +1,5 @@
 import * as readSync from "readline-sync";
-import { ItemName } from "./Item";
+import { ItemHolder, ItemName } from "./Item";
 import { ShoppingCart } from "./ShoppingCart";
 
 enum Command {
@@ -12,14 +12,8 @@ enum Command {
     Exit = "exit",
 }
 
-enum Price {
-    Apple = 110,
-    Water = 90,
-    Coffee = 150,
-}
-
 export class Shop {
-    private shoppingCartClass = new ShoppingCart();
+    private shoppingCart = new ShoppingCart();
     public run() {
         console.log("Welcome to special shop. This is what you can do.");
         this.displayCommandList();
@@ -70,9 +64,8 @@ export class Shop {
     }
 
     private displayItemList() {
-        let itemList = `${ItemName.Apple}, ${Price.Apple}\n`;
-        itemList += `${ItemName.Water}, ${Price.Water}\n`;
-        itemList += `${ItemName.Coffee}, ${Price.Coffee}\n`;
+        const itemList = ItemHolder.list
+            .reduce((acc, cur) => acc + `${cur.name}, ${cur.price}\n`, "");
         console.log(itemList);
     }
 
@@ -81,20 +74,20 @@ export class Shop {
             console.log(`${itemName} doesn't exist.`);
             return;
         }
-        this.shoppingCartClass.addItem(itemName as ItemName, numberOfItems);
+        this.shoppingCart.addItem(itemName as ItemName, numberOfItems);
     }
 
     private removeItemFromCart(itemName: string, numberOfItems: number) {
-        this.shoppingCartClass.removeItem(itemName as ItemName,numberOfItems);
+        this.shoppingCart.removeItem(itemName as ItemName, numberOfItems);
     }
 
     private showItemsInCart() {
-        const items = this.shoppingCartClass.getList()
+        const items = this.shoppingCart.getList()
             .reduce((acc, cur) => acc + `${cur.name}: ${cur.numberOfItems}\n`, "");
 
         const message = items
-            + `\ntotal number: ${this.shoppingCartClass.totalItemNumber}`
-            + `\ntotal price: ${this.shoppingCartClass.totalPrice}`;
+            + `\ntotal number: ${this.shoppingCart.totalItemNumber}`
+            + `\ntotal price: ${this.shoppingCart.totalPrice}`;
         console.log(message);
     }
 
@@ -103,7 +96,7 @@ export class Shop {
             console.error("Ones place digit must not 0.");
             return;
         }
-        const change = parseInt(amountOfMoney, 10) - this.shoppingCartClass.totalPrice;
+        const change = parseInt(amountOfMoney, 10) - this.shoppingCart.totalPrice;
         const coinList = new Map<string, number>([
             ["1000", 0],
             ["500", 0],
@@ -114,7 +107,7 @@ export class Shop {
         calculateNumberOfCoins();
         showNumberOfCoins();
         console.log(`change: ${change}`);
-        this.shoppingCartClass.clear();
+        this.shoppingCart.clear();
 
         function calculateNumberOfCoins() {
             let rest = change;

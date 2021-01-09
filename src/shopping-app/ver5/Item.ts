@@ -11,9 +11,9 @@ export interface Item {
 
 export class ItemHolder {
     private static items: Item[] = [
-        { name: ItemName.Apple, price: 110 },
-        { name: ItemName.Coffee, price: 150 },
-        { name: ItemName.Water, price: 90 },
+        Object.freeze({ name: ItemName.Apple, price: 110 }),
+        Object.freeze({ name: ItemName.Coffee, price: 150 }),
+        Object.freeze({ name: ItemName.Water, price: 90 }),
     ];
 
     public static getItemOf(name: string): Item {
@@ -22,5 +22,8 @@ export class ItemHolder {
             throw Error(`Specified item name is undefined [${name}]`);
         }
         return result;
+    }
+    public static get list(): Item[] {
+        return this.items;
     }
 }
