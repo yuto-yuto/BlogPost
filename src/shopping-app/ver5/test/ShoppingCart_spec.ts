@@ -12,29 +12,29 @@ describe("ShoppingCart", () => {
     describe("addItem", () => {
         it("should add an item", () => {
             cart.addItem(ItemName.Apple, 2);
-            const itemList = cart.getList();
+            const result = cart.getList();
             const expected = {
                 name: ItemName.Apple,
                 numberOfItems: 2,
             };
-            expect(itemList).to.deep.include(expected);
+            expect(result).to.deep.include(expected);
         });
 
         it("should sum the number of items for the same item", () => {
             cart.addItem(ItemName.Apple, 2);
             cart.addItem(ItemName.Apple, 3);
-            const itemList = cart.getList();
+            const result = cart.getList();
             const expected = {
                 name: ItemName.Apple,
                 numberOfItems: 5,
             };
-            expect(itemList).to.deep.include(expected);
+            expect(result).to.deep.include(expected);
         });
 
         it("should add the different item", () => {
             cart.addItem(ItemName.Apple, 2);
             cart.addItem(ItemName.Water, 3);
-            const itemList = cart.getList();
+            const result = cart.getList();
             const expected = [
                 {
                     name: ItemName.Apple,
@@ -45,24 +45,47 @@ describe("ShoppingCart", () => {
                     numberOfItems: 3,
                 }
             ];
-            expect(itemList).to.deep.members(expected);
+            expect(result).to.deep.members(expected);
         });
     });
 
     describe("removeItem", () => {
+        it("should throw an error when numberOfItems is 0", () => {
+            const result = () => cart.removeItem(ItemName.Apple, 0);
+            expect(result).to.throw();
+        });
         it("should not throw an error when no item exists", () => {
+            const result = () => cart.removeItem(ItemName.Apple, 1);
+            expect(result).not.to.throw();
+        });
+        it("should remove one if number of items is 2", () => {
+            cart.addItem(ItemName.Apple, 2);
             cart.removeItem(ItemName.Apple, 1);
-            const itemList = cart.getList();
-            const expected = {
-                name: ItemName.Apple,
-                numberOfItems: 2,
-            };
-            expect(itemList).to.deep.include(expected)
+            const result = cart.getList();
+            const expected = [
+                {
+                    name: ItemName.Apple,
+                    numberOfItems: 1,
+                }
+            ];
+            expect(result).to.deep.members(expected);
+        });
+        it("should delete item if number of items to remove is bigger than actual number", () => {
+            cart.addItem(ItemName.Apple, 2);
+            cart.removeItem(ItemName.Apple, 3);
+            const result = cart.getList();
+            expect(result).to.be.lengthOf(0);
         });
     });
-    describe("addItem", () => {
-        it("should add an item", () => {
+    describe("getList", () => {
+        it("should return empty array when no data exist", () => {
+            const result = cart.getList();
+            expect(result).to.be.lengthOf(0);
+        });
+        it("should include name and numberOfItems", () => {
+            cart.addItem(ItemName.Apple, 4);
+            const result = cart.getList();
+            expect(result[0]).to.have.keys("name", "numberOfItems");
         });
     });
-
 });

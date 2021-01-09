@@ -38,7 +38,11 @@ export class ShoppingCart {
             throw new Error(`numberOfItems to remove must be 1 or bigger number. specified value [${numberOfItems}]`)
         }
 
-        const currentNumber = this.items.get(itemName) || 0;
+        const currentNumber = this.items.get(itemName);
+        if (!currentNumber) {
+            return;
+        }
+
         const result = currentNumber - Math.floor(numberOfItems);
         if (result <= 0) {
             this.items.delete(itemName);
