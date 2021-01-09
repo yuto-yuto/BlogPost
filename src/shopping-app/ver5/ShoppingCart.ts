@@ -17,12 +17,15 @@ export class ShoppingCart {
         let result = 0;
         this.items.forEach((numberOfItems, key) => {
             const item = ItemHolder.getItemOf(key);
-            result = item.price * numberOfItems;
+            result += item.price * numberOfItems;
         });
         return result;
     }
 
     public addItem(itemName: ItemName, numberOfItems: number): void {
+        if (numberOfItems <= 0) { 
+            throw new Error("numberOfItems must be 1 or bigger number");
+        }
         const currentNumber = this.items.get(itemName) || 0;
         this.items.set(itemName, currentNumber + numberOfItems);
     }

@@ -101,7 +101,7 @@ export class Shop {
 
     private showItemsInCart() {
         const items = Array.from(this.shoppingCart.entries())
-            .reduce((acc, [key, value]) => `${key}: ${value}\n`, "")
+            .reduce((acc, [key, value]) => acc + `${key}: ${value}\n`, "")
         const totalNumber = Array.from(this.shoppingCart.values())
             .reduce((acc, cur) => acc + cur, 0);
 
