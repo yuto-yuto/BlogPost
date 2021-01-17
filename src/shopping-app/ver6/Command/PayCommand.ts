@@ -1,4 +1,3 @@
-import { ItemName } from "../Item";
 import { ShoppingCart } from "../ShoppingCart";
 import { ArgsCommandBase } from "./ArgsCommandBase";
 import { PayCommandArgs } from "./CommandArgs";
