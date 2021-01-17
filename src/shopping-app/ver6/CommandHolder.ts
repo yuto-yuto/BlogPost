@@ -4,6 +4,7 @@ import { DisplayCommand } from "./Command/DisplayCommand";
 import { AddCommand } from "./Command/AddCommand";
 import { ShoppingCart } from "./ShoppingCart";
 import { RemoveCommand } from "./Command/RemoveCommand";
+import { ShowItemsCommand } from "./Command/ShowItemsCommand";
 
 export class CommandHolder {
     private commands: Map<CommandName, Command>;
@@ -13,6 +14,7 @@ export class CommandHolder {
         this.commands.set(CommandName.List, new ListCommand());
         this.commands.set(CommandName.Add, new AddCommand(shoppingCart));
         this.commands.set(CommandName.Remove, new RemoveCommand(shoppingCart));
+        this.commands.set(CommandName.Cart, new ShowItemsCommand(shoppingCart));
     }
     public getCommand(name: CommandName): Command {
         const result = this.commands.get(name);

@@ -24,11 +24,9 @@ export class Shop {
             case CommandName.List:
             case CommandName.Add:
             case CommandName.Remove:
+            case CommandName.Cart:
                 const commandArgs = args.slice(1);
                 this.commandHolder.getCommand(args[0]).execute(commandArgs);
-                break;
-            case CommandName.Cart:
-                this.showItemsInCart();
                 break;
             case CommandName.Pay:
                 this.pay(args[1]);
@@ -39,20 +37,6 @@ export class Shop {
             default:
                 console.error("Undefined command.");
         }
-    }
-
-    private removeItemFromCart(itemName: string, numberOfItems: number) {
-        this.shoppingCart.removeItem(itemName as ItemName, numberOfItems);
-    }
-
-    private showItemsInCart() {
-        const items = this.shoppingCart.getList()
-            .reduce((acc, cur) => acc + `${cur.name}: ${cur.numberOfItems}\n`, "");
-
-        const message = items
-            + `\ntotal number: ${this.shoppingCart.totalItemNumber}`
-            + `\ntotal price: ${this.shoppingCart.totalPrice}`;
-        console.log(message);
     }
 
     private pay(amountOfMoney: string) {
