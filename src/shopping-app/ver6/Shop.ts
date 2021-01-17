@@ -1,12 +1,12 @@
 import * as readSync from "readline-sync";
-import { CommandName } from "./Command";
 import { CommandHolder } from "./CommandHolder";
-import { ItemHolder, ItemName } from "./Item";
+import { ItemName } from "./Item";
 import { ShoppingCart } from "./ShoppingCart";
+import { CommandName } from "./Command/Command-def";
 
 export class Shop {
     private shoppingCart = new ShoppingCart();
-    private commandHolder = new CommandHolder();
+    private commandHolder = new CommandHolder(this.shoppingCart);
     public run() {
         console.log("Welcome to special shop. This is what you can do.");
         this.commandHolder.getCommand(CommandName.Command).execute();
@@ -21,13 +21,10 @@ export class Shop {
     private executeCommand(args: string[]) {
         switch (args[0]) {
             case CommandName.Command:
-                this.commandHolder.getCommand(args[0]).execute();
-                break;
             case CommandName.List:
-                this.displayItemList();
-                break;
             case CommandName.Add:
-                this.addItemToCart(args[1], parseInt(args[2], 10));
+                const commandArgs = args.slice(1);
+                this.commandHolder.getCommand(args[0]).execute(commandArgs);
                 break;
             case CommandName.Remove:
                 this.removeItemFromCart(args[1], parseInt(args[2], 10))
@@ -44,12 +41,6 @@ export class Shop {
             default:
                 console.error("Undefined command.");
         }
-    }
-
-    private displayItemList() {
-        const itemList = ItemHolder.list
-            .reduce((acc, cur) => acc + `${cur.name}, ${cur.price}\n`, "");
-        console.log(itemList);
     }
 
     private addItemToCart(itemName: string, numberOfItems: number) {

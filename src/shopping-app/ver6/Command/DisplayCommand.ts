@@ -1,19 +1,4 @@
-import { CommandHolder } from "./CommandHolder";
-import { ItemHolder } from "./Item";
-
-export enum CommandName {
-    List = "list",
-    Add = "add",
-    Remove = "remove",
-    Cart = "cart",
-    Pay = "pay",
-    Command = "command",
-    Exit = "exit",
-}
-
-export interface Command {
-    execute(): void;
-}
+import { Command, CommandName } from "./Command-def";
 
 export class DisplayCommand implements Command {
     public execute(): void {
@@ -24,13 +9,5 @@ export class DisplayCommand implements Command {
             + `${CommandName.Cart}: list items in shopping cart\n`
             + `${CommandName.Pay}: pay the cost and receive change. Format is 'pay <money>'\n`;
         console.log(commandList);
-    }
-}
-
-export class ListCommand implements Command {
-    public execute(): void {
-        const itemList = ItemHolder.list
-            .reduce((acc, cur) => acc + `${cur.name}, ${cur.price}\n`, "");
-        console.log(itemList);
     }
 }
