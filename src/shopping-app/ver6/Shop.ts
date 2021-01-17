@@ -23,11 +23,9 @@ export class Shop {
             case CommandName.Command:
             case CommandName.List:
             case CommandName.Add:
+            case CommandName.Remove:
                 const commandArgs = args.slice(1);
                 this.commandHolder.getCommand(args[0]).execute(commandArgs);
-                break;
-            case CommandName.Remove:
-                this.removeItemFromCart(args[1], parseInt(args[2], 10))
                 break;
             case CommandName.Cart:
                 this.showItemsInCart();
@@ -41,14 +39,6 @@ export class Shop {
             default:
                 console.error("Undefined command.");
         }
-    }
-
-    private addItemToCart(itemName: string, numberOfItems: number) {
-        if (!(Object.values(ItemName) as string[]).includes(itemName)) {
-            console.log(`${itemName} doesn't exist.`);
-            return;
-        }
-        this.shoppingCart.addItem(itemName as ItemName, numberOfItems);
     }
 
     private removeItemFromCart(itemName: string, numberOfItems: number) {

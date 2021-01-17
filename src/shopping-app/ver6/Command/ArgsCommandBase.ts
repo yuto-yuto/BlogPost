@@ -1,6 +1,5 @@
 import { Command } from "./Command-def";
-
-export interface CommandArgs { }
+import { CommandArgs } from "./CommandArgs";
 
 export abstract class ArgsCommandBase<T extends CommandArgs> implements Command {
     public execute(args: string[]): void {

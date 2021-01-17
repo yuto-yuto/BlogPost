@@ -1,11 +1,7 @@
 import { ItemName } from "../Item";
 import { ShoppingCart } from "../ShoppingCart";
-import { ArgsCommandBase, CommandArgs } from "./ArgsCommandBase";
-
-interface AddCommandArgs extends CommandArgs {
-    itemName: string;
-    numberOfItems: number;
-}
+import { ArgsCommandBase } from "./ArgsCommandBase";
+import { AddCommandArgs } from "./CommandArgs";
 
 export class AddCommand extends ArgsCommandBase<AddCommandArgs> {
     constructor(private shoppingCart: ShoppingCart) {
