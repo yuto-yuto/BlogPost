@@ -1,14 +1,13 @@
 import { ItemName } from "../Item";
 import { ShoppingCart } from "../ShoppingCart";
-import { ArgsCommandBase } from "./ArgsCommandBase";
-import { CommandArgs } from "./Command-def";
+import { ArgsCommandBase, CommandArgs } from "./ArgsCommandBase";
 
-export interface AddCommandArgs extends CommandArgs {
+interface AddCommandArgs extends CommandArgs {
     itemName: string;
     numberOfItems: number;
 }
 
-export class AddCommand extends ArgsCommandBase {
+export class AddCommand extends ArgsCommandBase<AddCommandArgs> {
     constructor(private shoppingCart: ShoppingCart) {
         super();
     }

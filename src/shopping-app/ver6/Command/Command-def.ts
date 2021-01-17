@@ -11,5 +11,3 @@ export enum CommandName {
 export interface Command {
     execute(args?: string[]): void;
 }
-
-export interface CommandArgs { }
