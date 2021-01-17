@@ -17,7 +17,6 @@ export class AddCommand extends ArgsCommandBase<AddCommandArgs> {
             return;
         }
         this.shoppingCart.addItem(args.itemName as ItemName, args.numberOfItems);
-        console.log(this.shoppingCart)
     }
     protected convert(args: string[]): AddCommandArgs {
         if (args.length < 2) {
