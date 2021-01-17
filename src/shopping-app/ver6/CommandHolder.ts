@@ -5,9 +5,12 @@ import { AddCommand } from "./Command/AddCommand";
 import { ShoppingCart } from "./ShoppingCart";
 import { RemoveCommand } from "./Command/RemoveCommand";
 import { ShowItemsCommand } from "./Command/ShowItemsCommand";
+import { PayCommand } from "./Command/PayCommand";
+import { ExitCommand } from "./Command/ExitCommand";
+import { UndefinedCommand } from "./Command/UndefinedCommand";
 
 export class CommandHolder {
-    private commands: Map<CommandName, Command>;
+    private commands: Map<CommandName | string, Command>;
     constructor(shoppingCart: ShoppingCart) {
         this.commands = new Map();
         this.commands.set(CommandName.Command, new DisplayCommand());
@@ -15,11 +18,13 @@ export class CommandHolder {
         this.commands.set(CommandName.Add, new AddCommand(shoppingCart));
         this.commands.set(CommandName.Remove, new RemoveCommand(shoppingCart));
         this.commands.set(CommandName.Cart, new ShowItemsCommand(shoppingCart));
+        this.commands.set(CommandName.Pay, new PayCommand(shoppingCart));
+        this.commands.set(CommandName.Exit, new ExitCommand());
     }
-    public getCommand(name: CommandName): Command {
+    public getCommand(name: CommandName | string): Command {
         const result = this.commands.get(name);
         if (!result) {
-            throw new Error(`Specified command is undefined. [${name}]`);
+            return new UndefinedCommand();
         }
         return result;
     };

@@ -19,7 +19,7 @@ export class ItemHolder {
     public static getItemOf(name: string): Item {
         const result = this.items.find((value) => value.name === name);
         if (!result) {
-            throw Error(`Specified item name is undefined [${name}]`);
+            throw new Error(`Specified item name is undefined [${name}]`);
         }
         return result;
     }

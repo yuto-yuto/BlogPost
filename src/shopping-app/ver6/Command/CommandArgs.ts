@@ -5,3 +5,6 @@ export interface AddCommandArgs extends CommandArgs {
     numberOfItems: number;
 }
 export interface RemoveCommandArgs extends AddCommandArgs { }
+export interface PayCommandArgs extends CommandArgs {
+    amountOfMoney: string;
+}
