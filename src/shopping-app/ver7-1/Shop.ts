@@ -17,7 +17,6 @@ export class Shop {
             this.executeCommand(args);
         }
     }
-
     private executeCommand(args: string[]) {
         try {
             const commandArgs = args.slice(1);

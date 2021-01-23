@@ -1,8 +1,13 @@
+import { ShoppingConsole } from "../MyConsole";
 import { ShoppingCart } from "../ShoppingCart";
 import { Command } from "./Command-def";
 
 export class ShowItemsCommand implements Command {
-    constructor(private shoppingCart: ShoppingCart) { }
+    constructor(
+        private shoppingCart: ShoppingCart,
+        private shoppingConsole: ShoppingConsole,
+    ) { }
+
     public execute(): void {
         const items = this.shoppingCart.getList()
             .reduce((acc, cur) => acc + `${cur.name}: ${cur.numberOfItems}\n`, "");
@@ -10,6 +15,6 @@ export class ShowItemsCommand implements Command {
         const message = items
             + `\ntotal number: ${this.shoppingCart.totalItemNumber}`
             + `\ntotal price: ${this.shoppingCart.totalPrice}`;
-        console.log(message);
+        this.shoppingConsole.log(message);
     }
 }

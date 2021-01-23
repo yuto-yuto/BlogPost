@@ -24,7 +24,8 @@
     "clean": "rm -rf ./dist",
     "test-ver5": "mocha --recursive --require ts-node/register ver5/**/*_spec.ts",
     "test-ver6": "mocha --recursive --require ts-node/register ver6/**/*_spec.ts",
-    "test-ver7": "mocha --recursive --require ts-node/register ver7/**/*_spec.ts"
+    "test-ver7-1": "mocha --recursive --require ts-node/register ver7-1/**/*_spec.ts",
+    "test-ver7-2": "mocha --recursive --require ts-node/register ver7-2/**/*_spec.ts"
   },
   "keywords": [
     "unit-test"

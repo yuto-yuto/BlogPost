@@ -1,8 +1,10 @@
+import { ShoppingConsole } from "../MyConsole";
 import { Command } from "./Command-def";
 
 export class ExitCommand implements Command {
+    constructor(private shoppingConsole: ShoppingConsole) { }
     public execute(): void {
-        console.log("Thank you for your shopping.")
+        this.shoppingConsole.log("Thank you for your shopping.")
         process.exit();
     }
 }
