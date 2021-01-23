@@ -49,10 +49,10 @@ describe("AddCommand", () => {
 
         it("should pass test without using sinon", () => {
             const testConsole: MyConsole = {
-                log: (args: any[]) => {
-                    expect(args).to.equal("Table doesn't exist.");
+                log: (message?: any, ...optionalParams: any[]) => {
+                    expect(message).to.equal("Table doesn't exist.");
                 },
-                error: (args: any[]) => { },
+                error: (message?: any, ...optionalParams: any[]) => { },
             };
             const testClass = new AddCommand(shoppingCart, testConsole);
             testClass.execute(["Table", "1"]);

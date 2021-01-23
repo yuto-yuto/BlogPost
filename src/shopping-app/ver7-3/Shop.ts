@@ -9,10 +9,10 @@ export class Shop {
     private commandHolder: CommandHolder;
 
     constructor(private shoppingConsole: ShoppingConsole) {
-        this.commandHolder = new CommandHolder(
-            this.shoppingCart,
-            this.shoppingConsole,
-        );
+        this.commandHolder = new CommandHolder({
+            shoppingCart: this.shoppingCart,
+            shoppingConsole: this.shoppingConsole,
+        });
     }
 
     public run() {

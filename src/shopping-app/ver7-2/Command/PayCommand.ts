@@ -7,7 +7,7 @@ export class PayCommand extends ArgsCommandBase<PayCommandArgs> {
     constructor(
         private shoppingCart: ShoppingCart,
         private shoppingConsole: ShoppingConsole,
-        ) {
+    ) {
         super();
     }
     protected process(args: PayCommandArgs): void {
@@ -24,7 +24,7 @@ export class PayCommand extends ArgsCommandBase<PayCommandArgs> {
             ["10", 0],
         ]);
         calculateNumberOfCoins();
-        showNumberOfCoins();
+        showNumberOfCoins(this.shoppingConsole);
         this.shoppingConsole.log(`change: ${change}`);
         this.shoppingCart.clear();
 
@@ -41,10 +41,10 @@ export class PayCommand extends ArgsCommandBase<PayCommandArgs> {
             });
         }
 
-        function showNumberOfCoins() {
+        function showNumberOfCoins(shoppingConsole: ShoppingConsole) {
             coinList.forEach((value, key) => {
                 if (value > 0) {
-                    this.shoppingConsole.log(`${key}: ${value}`);
+                    shoppingConsole.log(`${key}: ${value}`);
                 }
             });
         }

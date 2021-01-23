@@ -24,7 +24,7 @@ export class PayCommand extends ArgsCommandBase<PayCommandArgs> {
             ["10", 0],
         ]);
         calculateNumberOfCoins();
-        showNumberOfCoins();
+        showNumberOfCoins(this.args.shoppingConsole);
         this.args.shoppingConsole.log(`change: ${change}`);
         this.args.shoppingCart.clear();
 
@@ -41,10 +41,10 @@ export class PayCommand extends ArgsCommandBase<PayCommandArgs> {
             });
         }
 
-        function showNumberOfCoins() {
+        function showNumberOfCoins(shoppingConsole: ShoppingConsole) {
             coinList.forEach((value, key) => {
                 if (value > 0) {
-                    this.args.shoppingConsole.log(`${key}: ${value}`);
+                    shoppingConsole.log(`${key}: ${value}`);
                 }
             });
         }

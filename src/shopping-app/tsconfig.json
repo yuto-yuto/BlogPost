@@ -67,11 +67,6 @@
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
   },
   "include": [
-    "ver1/**/*",
-    "ver2/**/*",
-    "ver3/**/*",
-    "ver4/**/*",
-    "ver5/**/*",
-    "ver6/**/*"
+    "ver*/**/*"
   ],
 }

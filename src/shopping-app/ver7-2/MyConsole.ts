@@ -1,13 +1,13 @@
 export interface MyConsole {
-    log(...args: any[]): void;
-    error(...args: any[]): void;
+    log(message?: any, ...optionalParams: any[]): void;
+    error(message?: any, ...optionalParams: any[]): void;
 }
 
 export class ShoppingConsole implements MyConsole {
-    public log(...args: any[]): void {
-        console.log(args);
+    public log(message?: any, ...optionalParams: any[]): void {
+        console.log(message, ...optionalParams);
     }
-    public error(...args: any[]): void {
-        console.error(args);
+    public error(message?: any, ...optionalParams: any[]): void {
+        console.error(message, ...optionalParams);
     }
 }
