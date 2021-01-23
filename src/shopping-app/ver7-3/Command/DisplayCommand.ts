@@ -2,7 +2,7 @@ import { ShoppingConsole } from "../MyConsole";
 import { Command, CommandName } from "./Command-def";
 
 export class DisplayCommand implements Command {
-    constructor(private shoppingConsole: ShoppingConsole) { }
+    constructor(private args: { shoppingConsole: ShoppingConsole }) { }
     public execute(): void {
         const commandList = `${CommandName.Command}: list the available commands\n`
             + `${CommandName.List}: show the item list and prices\n`
@@ -10,6 +10,6 @@ export class DisplayCommand implements Command {
             + `${CommandName.Remove}: remove the item from the shopping cart. Format is 'remove <item name> <number>'\n`
             + `${CommandName.Cart}: list items in shopping cart\n`
             + `${CommandName.Pay}: pay the cost and receive change. Format is 'pay <money>'\n`;
-        this.shoppingConsole.log(commandList);
+        this.args.shoppingConsole.log(commandList);
     }
 }

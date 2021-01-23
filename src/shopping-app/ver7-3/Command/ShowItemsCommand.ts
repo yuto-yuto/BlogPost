@@ -3,18 +3,18 @@ import { ShoppingCart } from "../ShoppingCart";
 import { Command } from "./Command-def";
 
 export class ShowItemsCommand implements Command {
-    constructor(
-        private shoppingCart: ShoppingCart,
-        private shoppingConsole: ShoppingConsole,
-    ) { }
+    constructor(private args: {
+        shoppingCart: ShoppingCart,
+        shoppingConsole: ShoppingConsole,
+    }) { }
 
     public execute(): void {
-        const items = this.shoppingCart.getList()
+        const items = this.args.shoppingCart.getList()
             .reduce((acc, cur) => acc + `${cur.name}: ${cur.numberOfItems}\n`, "");
 
         const message = items
-            + `\ntotal number: ${this.shoppingCart.totalItemNumber}`
-            + `\ntotal price: ${this.shoppingCart.totalPrice}`;
-        this.shoppingConsole.log(message);
+            + `\ntotal number: ${this.args.shoppingCart.totalItemNumber}`
+            + `\ntotal price: ${this.args.shoppingCart.totalPrice}`;
+        this.args.shoppingConsole.log(message);
     }
 }

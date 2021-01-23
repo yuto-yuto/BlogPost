@@ -10,7 +10,7 @@ import { ExitCommand } from "./Command/ExitCommand";
 import { UndefinedCommand } from "./Command/UndefinedCommand";
 import { ShoppingConsole } from "./MyConsole";
 
-export interface CommandRequred {
+export interface CommandRequiredArgs {
     shoppingCart: ShoppingCart;
     shoppingConsole: ShoppingConsole;
 }
@@ -18,16 +18,16 @@ export interface CommandRequred {
 export class CommandHolder {
     private commands: Map<CommandName | string, Command>;
     private undefinedCommand: Command;
-    constructor(shoppingCart: ShoppingCart, shoppingConsole: ShoppingConsole) {
+    constructor(args: CommandRequiredArgs) {
         this.commands = new Map();
-        this.commands.set(CommandName.Command, new DisplayCommand(shoppingConsole));
-        this.commands.set(CommandName.List, new ListCommand(shoppingConsole));
-        this.commands.set(CommandName.Add, new AddCommand(shoppingCart, shoppingConsole));
-        this.commands.set(CommandName.Remove, new RemoveCommand(shoppingCart));
-        this.commands.set(CommandName.Cart, new ShowItemsCommand(shoppingCart, shoppingConsole));
-        this.commands.set(CommandName.Pay, new PayCommand(shoppingCart, shoppingConsole));
-        this.commands.set(CommandName.Exit, new ExitCommand(shoppingConsole));
-        this.undefinedCommand = new UndefinedCommand(shoppingConsole);
+        this.commands.set(CommandName.Command, new DisplayCommand(args));
+        this.commands.set(CommandName.List, new ListCommand(args));
+        this.commands.set(CommandName.Add, new AddCommand(args));
+        this.commands.set(CommandName.Remove, new RemoveCommand(args));
+        this.commands.set(CommandName.Cart, new ShowItemsCommand(args));
+        this.commands.set(CommandName.Pay, new PayCommand(args));
+        this.commands.set(CommandName.Exit, new ExitCommand(args));
+        this.undefinedCommand = new UndefinedCommand(args);
     }
     public getCommand(name: CommandName | string): Command {
         const result = this.commands.get(name);

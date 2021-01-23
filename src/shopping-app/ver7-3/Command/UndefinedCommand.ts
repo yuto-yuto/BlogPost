@@ -2,8 +2,8 @@ import { ShoppingConsole } from "../MyConsole";
 import { Command } from "./Command-def";
 
 export class UndefinedCommand implements Command {
-    constructor(private shoppingConsole: ShoppingConsole) { }
+    constructor(private args: { shoppingConsole: ShoppingConsole }) { }
     public execute(): void {
-        this.shoppingConsole.error("Undefined command.");
+        this.args.shoppingConsole.error("Undefined command.");
     }
 }

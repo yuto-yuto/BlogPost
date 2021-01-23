@@ -5,18 +5,18 @@ import { ArgsCommandBase } from "./ArgsCommandBase";
 import { AddCommandArgs } from "./CommandArgs";
 
 export class AddCommand extends ArgsCommandBase<AddCommandArgs> {
-    constructor(
-        private shoppingCart: ShoppingCart,
-        private shoppingConsole: ShoppingConsole,
-    ) {
+    constructor(private args: {
+        shoppingCart: ShoppingCart,
+        shoppingConsole: ShoppingConsole,
+    }) {
         super();
     }
     protected process(args: AddCommandArgs): void {
         if (!(Object.values(ItemName) as string[]).includes(args.itemName)) {
-            this.shoppingConsole.log(`${args.itemName} doesn't exist.`);
+            this.args.shoppingConsole.log(`${args.itemName} doesn't exist.`);
             return;
         }
-        this.shoppingCart.addItem(args.itemName as ItemName, args.numberOfItems);
+        this.args.shoppingCart.addItem(args.itemName as ItemName, args.numberOfItems);
     }
     protected convert(args: string[]): AddCommandArgs {
         if (args.length < 2) {

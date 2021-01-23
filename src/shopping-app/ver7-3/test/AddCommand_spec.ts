@@ -17,7 +17,7 @@ describe("AddCommand", () => {
         cartStub = sinon.stub(shoppingCart, "addItem");
         shoppingConsole = new ShoppingConsole();
         consoleStub = sinon.stub(shoppingConsole, "log");
-        command = new AddCommand(shoppingCart, shoppingConsole);
+        command = new AddCommand({ shoppingCart, shoppingConsole });
     });
 
     afterEach(() => {
@@ -54,7 +54,7 @@ describe("AddCommand", () => {
                 },
                 error: (args: any[]) => { },
             };
-            const testClass = new AddCommand(shoppingCart, testConsole);
+            const testClass = new AddCommand({ shoppingCart, shoppingConsole: testConsole });
             testClass.execute(["Table", "1"]);
         });
 

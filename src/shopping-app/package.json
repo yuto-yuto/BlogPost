@@ -19,13 +19,16 @@
     "ver4": "node ./dist/ver4/app.js",
     "ver5": "node ./dist/ver5/app.js",
     "ver6": "node ./dist/ver6/app.js",
-    "ver7": "node ./dist/ver7/app.js",
+    "ver7-1": "node ./dist/ver7-1/app.js",
+    "ver7-2": "node ./dist/ver7-2/app.js",
+    "ver7-3": "node ./dist/ver7-3/app.js",
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "test-ver5": "mocha --recursive --require ts-node/register ver5/**/*_spec.ts",
     "test-ver6": "mocha --recursive --require ts-node/register ver6/**/*_spec.ts",
     "test-ver7-1": "mocha --recursive --require ts-node/register ver7-1/**/*_spec.ts",
-    "test-ver7-2": "mocha --recursive --require ts-node/register ver7-2/**/*_spec.ts"
+    "test-ver7-2": "mocha --recursive --require ts-node/register ver7-2/**/*_spec.ts",
+    "test-ver7-3": "mocha --recursive --require ts-node/register ver7-3/**/*_spec.ts"
   },
   "keywords": [
     "unit-test"

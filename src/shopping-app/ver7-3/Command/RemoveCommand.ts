@@ -4,11 +4,11 @@ import { ArgsCommandBase } from "./ArgsCommandBase";
 import { RemoveCommandArgs } from "./CommandArgs";
 
 export class RemoveCommand extends ArgsCommandBase<RemoveCommandArgs> {
-    constructor(private shoppingCart: ShoppingCart) {
+    constructor(private args: { shoppingCart: ShoppingCart }) {
         super();
     }
     protected process(args: RemoveCommandArgs): void {
-        this.shoppingCart.removeItem(args.itemName as ItemName, args.numberOfItems);
+        this.args.shoppingCart.removeItem(args.itemName as ItemName, args.numberOfItems);
     }
     protected convert(args: string[]): RemoveCommandArgs {
         if (args.length < 2) {

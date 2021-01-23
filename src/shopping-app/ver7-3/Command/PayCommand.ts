@@ -4,18 +4,18 @@ import { ArgsCommandBase } from "./ArgsCommandBase";
 import { PayCommandArgs } from "./CommandArgs";
 
 export class PayCommand extends ArgsCommandBase<PayCommandArgs> {
-    constructor(
-        private shoppingCart: ShoppingCart,
-        private shoppingConsole: ShoppingConsole,
-        ) {
+    constructor(private args: {
+        shoppingCart: ShoppingCart,
+        shoppingConsole: ShoppingConsole,
+    }) {
         super();
     }
     protected process(args: PayCommandArgs): void {
         if (args.amountOfMoney.slice(-1) !== "0") {
-            this.shoppingConsole.error("Ones place digit must not 0.");
+            this.args.shoppingConsole.error("Ones place digit must not 0.");
             return;
         }
-        const change = parseInt(args.amountOfMoney, 10) - this.shoppingCart.totalPrice;
+        const change = parseInt(args.amountOfMoney, 10) - this.args.shoppingCart.totalPrice;
         const coinList = new Map<string, number>([
             ["1000", 0],
             ["500", 0],
@@ -25,8 +25,8 @@ export class PayCommand extends ArgsCommandBase<PayCommandArgs> {
         ]);
         calculateNumberOfCoins();
         showNumberOfCoins();
-        this.shoppingConsole.log(`change: ${change}`);
-        this.shoppingCart.clear();
+        this.args.shoppingConsole.log(`change: ${change}`);
+        this.args.shoppingCart.clear();
 
         function calculateNumberOfCoins() {
             let rest = change;
@@ -44,7 +44,7 @@ export class PayCommand extends ArgsCommandBase<PayCommandArgs> {
         function showNumberOfCoins() {
             coinList.forEach((value, key) => {
                 if (value > 0) {
-                    this.shoppingConsole.log(`${key}: ${value}`);
+                    this.args.shoppingConsole.log(`${key}: ${value}`);
                 }
             });
         }
