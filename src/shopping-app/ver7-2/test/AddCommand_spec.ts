@@ -3,28 +3,27 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import { ShoppingCart } from "../ShoppingCart";
 import { AddCommand } from "../Command/AddCommand";
-import { ShoppingConsole } from "../MyConsole";
+import { MyConsole, ShoppingConsole } from "../MyConsole";
 
 describe("AddCommand", () => {
     let shoppingCart: ShoppingCart;
     let shoppingConsole: ShoppingConsole;
     let command: AddCommand;
     let cartStub: sinon.SinonStub;
-    let consoleSpy: sinon.SinonSpy;
+    let consoleStub: sinon.SinonStub;
 
     beforeEach(() => {
         shoppingCart = new ShoppingCart();
         cartStub = sinon.stub(shoppingCart, "addItem");
         shoppingConsole = new ShoppingConsole();
+        consoleStub = sinon.stub(shoppingConsole, "log");
         command = new AddCommand(shoppingCart, shoppingConsole);
     });
 
     afterEach(() => {
         cartStub.restore();
-        if (consoleSpy) {
-            consoleSpy.restore();
-        }
-    })
+        consoleStub.restore();
+    });
 
     describe("execute", () => {
         [
@@ -39,15 +38,24 @@ describe("AddCommand", () => {
         });
 
         it("should not call addItem when specified item doesn't exist", () => {
-            consoleSpy = sinon.spy(shoppingConsole, "log");
             command.execute(["Table", "1"]);
             expect(cartStub.notCalled).to.be.true;
         });
 
         it("should output message when specified item doesn't exist", () => {
-            consoleSpy = sinon.spy(shoppingConsole, "log");
             command.execute(["Table", "1"]);
-            expect(consoleSpy.calledWith("Table doesn't exist.")).to.be.true;
+            expect(consoleStub.calledWith("Table doesn't exist.")).to.be.true;
+        });
+
+        it("should pass test without using sinon", () => {
+            const testConsole: MyConsole = {
+                log: (args: any[]) => {
+                    expect(args).to.equal("Table doesn't exist.");
+                },
+                error: (args: any[]) => { },
+            };
+            const testClass = new AddCommand(shoppingCart, testConsole);
+            testClass.execute(["Table", "1"]);
         });
 
         it("should throw an error when arg length is 1", () => {
