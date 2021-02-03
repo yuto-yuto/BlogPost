@@ -22,6 +22,7 @@
     "ver7-1": "node ./dist/ver7-1/app.js",
     "ver7-2": "node ./dist/ver7-2/app.js",
     "ver7-3": "node ./dist/ver7-3/app.js",
+    "ver8": "node ./dist/ver8/app.js",
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "test-ver5": "mocha --recursive --require ts-node/register ver5/**/*_spec.ts",
