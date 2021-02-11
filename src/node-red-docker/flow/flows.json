@@ -1,0 +1,182 @@
+[
+    {
+        "id": "aee00817.edddf8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "cc268dcf.28791",
+        "type": "inject",
+        "z": "aee00817.edddf8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 100,
+        "wires": [
+            [
+                "53dfeb5d.128d64",
+                "fb8578d1.df93f8"
+            ]
+        ]
+    },
+    {
+        "id": "bffe09ed.0900a8",
+        "type": "debug",
+        "z": "aee00817.edddf8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "febd7061.9dd62",
+        "type": "function",
+        "z": "aee00817.edddf8",
+        "name": "contain 0",
+        "func": "msg.payload = \"payload contains 0\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 620,
+        "y": 80,
+        "wires": [
+            [
+                "bffe09ed.0900a8"
+            ]
+        ]
+    },
+    {
+        "id": "56726766.6d5378",
+        "type": "switch",
+        "z": "aee00817.edddf8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 450,
+        "y": 100,
+        "wires": [
+            [
+                "febd7061.9dd62"
+            ],
+            [
+                "caacdaec.dd3248"
+            ],
+            [
+                "ab6ff83e.4f82a8"
+            ]
+        ]
+    },
+    {
+        "id": "caacdaec.dd3248",
+        "type": "function",
+        "z": "aee00817.edddf8",
+        "name": "contain 1",
+        "func": "msg.payload = \"payload contains 1\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 620,
+        "y": 120,
+        "wires": [
+            [
+                "bffe09ed.0900a8"
+            ]
+        ]
+    },
+    {
+        "id": "ab6ff83e.4f82a8",
+        "type": "function",
+        "z": "aee00817.edddf8",
+        "name": "otherwise",
+        "func": "msg.payload = \"payload contains neither 0 nor 1\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 620,
+        "y": 160,
+        "wires": [
+            [
+                "bffe09ed.0900a8"
+            ]
+        ]
+    },
+    {
+        "id": "53dfeb5d.128d64",
+        "type": "function",
+        "z": "aee00817.edddf8",
+        "name": "Get first digit",
+        "func": "msg.payload = msg.payload.toString().slice(-1);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 290,
+        "y": 100,
+        "wires": [
+            [
+                "56726766.6d5378"
+            ]
+        ]
+    },
+    {
+        "id": "fb8578d1.df93f8",
+        "type": "debug",
+        "z": "aee00817.edddf8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 300,
+        "y": 180,
+        "wires": []
+    }
+]

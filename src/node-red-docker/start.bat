@@ -1,0 +1,1 @@
+winpty docker run -it -p 1880:1880 -v /$(PWD)/flow:/data --name mynodered nodered/node-red
