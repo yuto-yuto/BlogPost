@@ -32,7 +32,7 @@
         "wires": [
             [
                 "53dfeb5d.128d64",
-                "fb8578d1.df93f8"
+                "51e3ca87.635c04"
             ]
         ]
     },
@@ -164,19 +164,26 @@
         ]
     },
     {
-        "id": "fb8578d1.df93f8",
-        "type": "debug",
+        "id": "51e3ca87.635c04",
+        "type": "delay",
         "z": "aee00817.edddf8",
         "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 300,
-        "y": 180,
-        "wires": []
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 360,
+        "y": 240,
+        "wires": [
+            [
+                "bffe09ed.0900a8"
+            ]
+        ]
     }
 ]

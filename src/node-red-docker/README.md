@@ -11,5 +11,5 @@ winpty docker run -it -p 1880:1880 -v /$(PWD)/flow:/data --name mynodered nodere
 ## Second time
 
 ```bash
-winpty docker run -it -p 1880:1880 -v $(PWD)/flow:/data nodered/node-red
+winpty docker run -it -p 1880:1880 -v /$(PWD)/flow:/data nodered/node-red
 ```
