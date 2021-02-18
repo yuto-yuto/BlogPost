@@ -14,6 +14,7 @@
   },
   "scripts": {
     "start-inter": "ts-node ./interface-type/app.ts",
+    "start-arrow": "ts-node ./multi-arrow/app.ts",
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "test": "mocha --recursive --require ts-node/register *_spec.ts"
