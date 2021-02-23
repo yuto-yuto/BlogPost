@@ -69,5 +69,6 @@
   "include": [
     "interface-type/**/*",
     "multi-arrow/**/*",
+    "static-function/**/*"
   ],
 }
