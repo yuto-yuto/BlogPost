@@ -1,0 +1,32 @@
+{
+  "name": "state-machine",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuto-yuto/BlogPost.git"
+  },
+  "description": "",
+  "directories": {
+    "lib": "lib"
+  },
+  "engines": {
+    "node": ">= 8.17.0"
+  },
+  "scripts": {
+    "start": "ts-node ./src/app.ts",
+    "build": "tsc",
+    "clean": "rm -rf ./dist",
+    "test": "mocha --recursive --require ts-node/register *_spec.ts"
+  },
+  "keywords": [
+    "state-machine"
+  ],
+  "author": "yuto-yuto",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^12.0.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {}
+}
