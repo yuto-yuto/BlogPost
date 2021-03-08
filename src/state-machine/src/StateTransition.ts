@@ -1,4 +1,4 @@
-import { Aborted, Emittable, Ended, Undefined } from "./Emittable";
+import { Aborted, DummyRunning, Emittable, Ended, Undefined } from "./Emittable";
 import { Key } from "./Key";
 
 export interface ComputeArgs {
@@ -32,7 +32,7 @@ export class RunningToInitial extends StateTransition {
 
         const count2 = this.map.get(Key.Count2);
         const count3 = this.map.get(Key.Count3);
-        if (count2 === undefined &&
+        if (count2 === undefined ||
             count3 === undefined
         ) {
             return {
@@ -57,7 +57,7 @@ export class InterruptedToInitial extends StateTransition {
 
         const count2 = this.map.get(Key.Count2);
         const flag = this.map.get(Key.Flag);
-        if (count2 === undefined &&
+        if (count2 === undefined ||
             flag === undefined
         ) {
             return {
@@ -67,8 +67,9 @@ export class InterruptedToInitial extends StateTransition {
         }
 
         const isDummyRunning = (args.count1 === count2)
-            && (flag === 0);
-        const emittable = isDummyRunning ? new Ended() : new Aborted();
+            && (flag === false);
+        const emittable = isDummyRunning ?
+            new DummyRunning() : new Aborted();
         return {
             emittable,
             transition: new KeepState(emittable.nextState),

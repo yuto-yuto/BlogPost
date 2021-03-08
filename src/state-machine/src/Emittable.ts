@@ -76,7 +76,7 @@ export class DummyRunning implements Emittable {
 
 export class Interrupted implements Emittable {
     public emit(callback: SenderCallback): void {
-        callback(State.Initial);
+        callback(State.Interrupted);
     }
     public get nextState(): Emittable {
         return this;

@@ -1,7 +1,7 @@
 import { Initial, Interrupted, Running, SenderCallback, Undefined } from "./Emittable";
 import { Key } from "./Key";
 import { State } from "./State";
-import { KeepState, StateTransition } from "./StateTransition";
+import { InterruptedToInitial, KeepState, RunningToInitial } from "./StateTransition";
 
 export class Context {
     private emittable = new Undefined();
@@ -31,31 +31,43 @@ export class Context {
     public updateState(current: State): void {
         if (!this.lastState) {
             this.lastState = current;
+            this.isCount1Updatable = true;
             this.emittable = getInitialEmittable();
+            this.transition = new KeepState(this.emittable);
+            return;
         }
 
         this.isCount1Updatable = false;
 
         if (this.isInitialToRunning(current)) {
+            this.lastState = current;
             this.isCount1Updatable = true;
             this.emittable = new Running();
-
+            this.transition = new KeepState(this.emittable);
             return;
         }
         if (this.isRunningToInterrupted(current)) {
+            this.lastState = current;
             this.emittable = new Interrupted();
+            this.transition = new KeepState(this.emittable);
             return;
         }
         if (this.isInterruptedToRunning(current)) {
+            this.lastState = current;
             this.emittable = new Running();
+            this.transition = new KeepState(this.emittable);
             return;
         }
         if (this.isRunningToInitial(current)) {
+            this.lastState = current;
             this.emittable = new Undefined();
+            this.transition = new RunningToInitial(this.emittable);
             return;
         }
         if (this.isInterruptedToInitial(current)) {
+            this.lastState = current;
             this.emittable = new Undefined();
+            this.transition = new InterruptedToInitial(this.emittable);
             return;
         }
 
