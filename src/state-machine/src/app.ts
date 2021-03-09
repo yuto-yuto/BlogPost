@@ -1,4 +1,5 @@
 import { Context } from "./Context";
+import { FirstContext } from "./First";
 import { Key } from "./Key";
 import { State } from "./State";
 
@@ -17,7 +18,8 @@ function log(value: string) {
 }
 
 async function run() {
-    const context = new Context();
+    // const context = new Context();
+    const context = new FirstContext();
 
     async function update(state: State) {
         context.updateState(state);
@@ -49,7 +51,7 @@ async function run() {
     console.log(2);
     await update(State.Running);
     await update(State.Initial);
-    await store(Key.Count1, 20); // not used
+    await store(Key.Count1, 20); // not stored
     await store(Key.Count2, 2);
     await store(Key.Count3, 0);
     await store(Key.Flag, false); // not used
