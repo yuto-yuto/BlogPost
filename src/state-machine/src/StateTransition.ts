@@ -1,4 +1,4 @@
-import { Aborted, DummyRunning, Emittable, Ended, Undefined } from "./Emittable";
+import { Aborted, DummyRunning, Emitter, Ended, Undefined } from "./Emitter";
 import { Key } from "./Key";
 
 export interface ComputeArgs {
@@ -7,20 +7,20 @@ export interface ComputeArgs {
     count1: number;
 };
 export interface ChangeableState {
-    emittable: Emittable;
+    emitter: Emitter;
     transition: StateTransition;
 }
 
 export abstract class StateTransition {
     protected map = new Map<string, number | boolean>();
-    constructor(protected emittable: Emittable) { }
+    constructor(protected emitter: Emitter) { }
     abstract compute(args: ComputeArgs): ChangeableState;
 }
 
 export class KeepState extends StateTransition {
     public compute(args: ComputeArgs): ChangeableState {
         return {
-            emittable: this.emittable,
+            emitter: this.emitter,
             transition: this,
         };
     }
@@ -36,17 +36,17 @@ export class RunningToInitial extends StateTransition {
             count3 === undefined
         ) {
             return {
-                emittable: new Undefined(),
+                emitter: new Undefined(),
                 transition: this,
             };
         }
 
         const isEnded = (args.count1 === count2)
             && (count3 === 0);
-        const emittable = isEnded ? new Ended() : new Aborted();
+        const emitter = isEnded ? new Ended() : new Aborted();
         return {
-            emittable,
-            transition: new KeepState(emittable.nextState),
+            emitter: emitter,
+            transition: new KeepState(emitter.nextState),
         };
     }
 }
@@ -61,18 +61,18 @@ export class InterruptedToInitial extends StateTransition {
             flag === undefined
         ) {
             return {
-                emittable: new Undefined(),
+                emitter: new Undefined(),
                 transition: this,
             };
         }
 
         const isDummyRunning = (args.count1 === count2)
             && (flag === false);
-        const emittable = isDummyRunning ?
+        const emitter = isDummyRunning ?
             new DummyRunning() : new Aborted();
         return {
-            emittable,
-            transition: new KeepState(emittable.nextState),
+            emitter: emitter,
+            transition: new KeepState(emitter.nextState),
         };
     }
 }

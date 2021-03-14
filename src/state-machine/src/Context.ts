@@ -1,11 +1,11 @@
-import { Initial, Interrupted, Running, SenderCallback, Undefined } from "./Emittable";
+import { Initial, Interrupted, Running, SenderCallback, Undefined } from "./Emitter";
 import { Key } from "./Key";
 import { State } from "./State";
 import { InterruptedToInitial, KeepState, RunningToInitial } from "./StateTransition";
 
 export class Context {
-    private emittable = new Undefined();
-    private transition = new KeepState(this.emittable);
+    private emitter = new Undefined();
+    private transition = new KeepState(this.emitter);
     private lastState?: State;
     private isCount1Updatable = false;
     private count1 = 0;
@@ -19,21 +19,21 @@ export class Context {
             key,
             value,
         });
-        this.emittable = result.emittable;
+        this.emitter = result.emitter;
         this.transition = result.transition;
     }
 
     public emit(callback: SenderCallback) {
-        this.emittable.emit(callback);
-        this.emittable = this.emittable.nextState;
+        this.emitter.emit(callback);
+        this.emitter = this.emitter.nextState;
     }
 
     public updateState(current: State): void {
         if (!this.lastState) {
             this.lastState = current;
             this.isCount1Updatable = true;
-            this.emittable = getInitialEmittable();
-            this.transition = new KeepState(this.emittable);
+            this.emitter = getInitialEmitter();
+            this.transition = new KeepState(this.emitter);
             return;
         }
 
@@ -42,36 +42,36 @@ export class Context {
         if (this.isInitialToRunning(current)) {
             this.lastState = current;
             this.isCount1Updatable = true;
-            this.emittable = new Running();
-            this.transition = new KeepState(this.emittable);
+            this.emitter = new Running();
+            this.transition = new KeepState(this.emitter);
             return;
         }
         if (this.isRunningToInterrupted(current)) {
             this.lastState = current;
-            this.emittable = new Interrupted();
-            this.transition = new KeepState(this.emittable);
+            this.emitter = new Interrupted();
+            this.transition = new KeepState(this.emitter);
             return;
         }
         if (this.isInterruptedToRunning(current)) {
             this.lastState = current;
-            this.emittable = new Running();
-            this.transition = new KeepState(this.emittable);
+            this.emitter = new Running();
+            this.transition = new KeepState(this.emitter);
             return;
         }
         if (this.isRunningToInitial(current)) {
             this.lastState = current;
-            this.emittable = new Undefined();
-            this.transition = new RunningToInitial(this.emittable);
+            this.emitter = new Undefined();
+            this.transition = new RunningToInitial(this.emitter);
             return;
         }
         if (this.isInterruptedToInitial(current)) {
             this.lastState = current;
-            this.emittable = new Undefined();
-            this.transition = new InterruptedToInitial(this.emittable);
+            this.emitter = new Undefined();
+            this.transition = new InterruptedToInitial(this.emitter);
             return;
         }
 
-        function getInitialEmittable() {
+        function getInitialEmitter() {
             if (current === State.Initial) {
                 return new Initial();
             }

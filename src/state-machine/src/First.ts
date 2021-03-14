@@ -1,10 +1,10 @@
-import { SenderCallback } from "./Emittable";
+import { SenderCallback } from "./Emitter";
 import { Key } from "./Key";
 import { State } from "./State";
 
 export class FirstContext {
     private map = new Map<string, number | boolean>();
-    private emittable = State.Undefined;
+    private emitter = State.Undefined;
     private lastState?: State;
     private currentState?: State;
 
@@ -26,24 +26,24 @@ export class FirstContext {
         this.map.clear();
         if (this.currentState === State.InterruptedToInitial) {
             if (this.count1 === count2 && flag === false) {
-                this.emittable = State.DummyRunning;
+                this.emitter = State.DummyRunning;
                 return;
             }
-            this.emittable = State.Aborted;
+            this.emitter = State.Aborted;
             return;
 
         } else if (this.currentState === State.RunningToInitial) {
             if (this.count1 === count2 && count3 === 0) {
-                this.emittable = State.Ended;
+                this.emitter = State.Ended;
                 return;
             }
-            this.emittable = State.Aborted;
+            this.emitter = State.Aborted;
             return;
         }
     }
 
     public emit(callback: SenderCallback) {
-        if (this.emittable === State.DummyRunning) {
+        if (this.emitter === State.DummyRunning) {
             callback(State.Running);
             setTimeout(() => {
                 callback(State.Ended);
@@ -51,13 +51,13 @@ export class FirstContext {
                     callback(State.Initial);
                 }, this.interval);
             }, this.interval);
-        } else if (this.emittable === State.Aborted) {
-            callback(this.emittable);
+        } else if (this.emitter === State.Aborted) {
+            callback(this.emitter);
             setTimeout(() => {
                 callback(State.Initial);
             }, this.interval);
         } else {
-            callback(this.emittable);
+            callback(this.emitter);
         }
     }
 
@@ -65,7 +65,7 @@ export class FirstContext {
         if (!this.lastState) {
             this.lastState = current;
             this.isCount1Updatable = true;
-            this.emittable = getInitialValue();
+            this.emitter = getInitialValue();
             return;
         }
 
@@ -74,28 +74,28 @@ export class FirstContext {
         if (this.isInitialToRunning(current)) {
             this.lastState = current;
             this.isCount1Updatable = true;
-            this.emittable = State.Running;
+            this.emitter = State.Running;
             return;
         }
         if (this.isRunningToInterrupted(current)) {
             this.lastState = current;
-            this.emittable = State.Interrupted;
+            this.emitter = State.Interrupted;
             return;
         }
         if (this.isInterruptedToRunning(current)) {
             this.lastState = current;
-            this.emittable = State.Running;
+            this.emitter = State.Running;
             return;
         }
         if (this.isRunningToInitial(current)) {
             this.lastState = current;
-            this.emittable = State.Undefined;
+            this.emitter = State.Undefined;
             this.currentState = State.RunningToInitial;
             return;
         }
         if (this.isInterruptedToInitial(current)) {
             this.lastState = current;
-            this.emittable = State.Undefined;
+            this.emitter = State.Undefined;
             this.currentState = State.InterruptedToInitial;
             return;
         }
