@@ -13,6 +13,7 @@ export class Context {
     public store(key: string, value: number | boolean) {
         if (this.isCount1Updatable && key === Key.Count1) {
             this.count1 = value as number;
+            this.isCount1Updatable = false;
         }
         const result = this.transition.compute({
             count1: this.count1,

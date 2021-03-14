@@ -5,7 +5,7 @@ export interface ComputeArgs {
     key: string;
     value: number | boolean;
     count1: number;
-};
+}
 export interface ChangeableState {
     emitter: Emitter;
     transition: StateTransition;

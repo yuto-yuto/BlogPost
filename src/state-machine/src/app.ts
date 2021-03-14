@@ -18,8 +18,8 @@ function log(value: string) {
 }
 
 async function run() {
-    // const context = new Context();
-    const context = new FirstContext();
+    const context = new Context();
+    // const context = new FirstContext();
 
     async function update(state: State) {
         context.updateState(state);
