@@ -13,6 +13,7 @@ export class FirstContext {
     private interval = 10;
 
     public store(key: string, value: number | boolean): void {
+        this.map.set(key, value);
         if (this.isCount1Updatable && key === Key.Count1) {
             this.count1 = value as number;
             this.isCount1Updatable = false;
@@ -22,6 +23,13 @@ export class FirstContext {
         const count2 = this.map.get(Key.Count2);
         const count3 = this.map.get(Key.Count3);
         const flag = this.map.get(Key.Flag);
+
+        if (count2 === undefined ||
+            count3 === undefined ||
+            flag === undefined
+        ) {
+            return;
+        }
 
         this.map.clear();
         if (this.currentState === State.InterruptedToInitial) {
@@ -52,6 +60,11 @@ export class FirstContext {
                 }, this.interval);
             }, this.interval);
         } else if (this.emitter === State.Aborted) {
+            callback(this.emitter);
+            setTimeout(() => {
+                callback(State.Initial);
+            }, this.interval);
+        } else if (this.emitter === State.Ended) {
             callback(this.emitter);
             setTimeout(() => {
                 callback(State.Initial);
