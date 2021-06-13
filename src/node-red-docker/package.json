@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --recursive --require ts-node/register test/*.ts"
+    "test": "mocha --recursive --require ts-node/register test/*.ts"
   },
   "keywords": [
     "node-red",

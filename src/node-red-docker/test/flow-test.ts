@@ -1,5 +1,6 @@
 import "mocha";
 import { expect } from "chai";
+import * as sinon from "sinon";
 
 const requiredNodes = [
     require("../node_modules/@node-red/nodes/core/common/20-inject.js"),
@@ -43,7 +44,7 @@ describe("Node-RED flow test", () => {
         });
     })
 
-    it("should send 'payload contains 0' when the first digit is 0", (done) => {
+    function runFirstTest(done: Mocha.Done) {
         const flow = loadFlowFile();
         helper.load(requiredNodes, flow, () => {
             const inputNode = helper.getNode(inputNodeId);
@@ -63,6 +64,10 @@ describe("Node-RED flow test", () => {
                 node.receive({ payload: 123450 });
             })
         });
+    }
+
+    it("should send 'payload contains 0' when the first digit is 0", (done) => {
+        runFirstTest(done);
     });
 
     it("should send 'payload contains 1' when the first digit is 1", (done) => {
@@ -137,5 +142,12 @@ describe("Node-RED flow test", () => {
                 node.receive({ payload: 123452 });
             })
         });
+    });
+
+    it("should succeed when replacing setTimeout and setInterval", (done) => {
+        // Test fails when replacing setImmediate
+        sinon.useFakeTimers({ toFake: ["setImmediate"] });
+        // sinon.useFakeTimers({ toFake: ["setTimeout", "setInterval"] });
+        runFirstTest(done);
     });
 });
