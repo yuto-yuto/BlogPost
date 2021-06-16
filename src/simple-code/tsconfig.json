@@ -70,6 +70,7 @@
     "refactoring/**/*",
     "interface-type/**/*",
     "multi-arrow/**/*",
-    "static-function/**/*"
+    "static-function/**/*",
+    "map/**/*"
   ],
 }
