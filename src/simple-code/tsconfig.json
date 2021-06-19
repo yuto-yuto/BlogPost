@@ -71,6 +71,7 @@
     "interface-type/**/*",
     "multi-arrow/**/*",
     "static-function/**/*",
-    "map/**/*"
+    "map/**/*",
+    "recursive-function/**/*"
   ],
 }

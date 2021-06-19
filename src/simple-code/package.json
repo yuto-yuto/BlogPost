@@ -18,6 +18,7 @@
     "start-refac": "ts-node ./refactoring/app1.ts",
     "start-map": "ts-node ./map/app2.ts",
     "start-nested": "ts-node ./nested-class/app.ts",
+    "start-rec": "ts-node ./recursive-function/app3.ts",
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "test": "mocha --recursive --require ts-node/register ./**/*_spec.ts"
