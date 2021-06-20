@@ -72,6 +72,7 @@
     "multi-arrow/**/*",
     "static-function/**/*",
     "map/**/*",
-    "recursive-function/**/*"
+    "recursive-function/**/*",
+    "timers/**/*",
   ],
 }
