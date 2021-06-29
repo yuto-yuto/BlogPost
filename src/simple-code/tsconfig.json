@@ -75,5 +75,6 @@
     "recursive-function/**/*",
     "timers/**/*",
     "extend-interface/**/*",
+    "spread-operator/**/*",
   ],
 }

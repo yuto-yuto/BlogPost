@@ -20,6 +20,7 @@
     "start-nested": "ts-node ./nested-class/app.ts",
     "start-rec": "ts-node ./recursive-function/app3.ts",
     "start-timer": "ts-node ./timers/app.ts",
+    "start-spr": "ts-node ./spread-operator/app.ts",
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "test": "mocha --recursive --require ts-node/register ./**/*_spec.ts"
