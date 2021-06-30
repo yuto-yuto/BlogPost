@@ -21,6 +21,8 @@
     "start-rec": "ts-node ./recursive-function/app3.ts",
     "start-timer": "ts-node ./timers/app.ts",
     "start-spr": "ts-node ./spread-operator/app.ts",
+    "start-enum": "ts-node ./one-file/enum.ts",
+    "start-non": "ts-node ./one-file/NonNull.ts",
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "test": "mocha --recursive --require ts-node/register ./**/*_spec.ts"
