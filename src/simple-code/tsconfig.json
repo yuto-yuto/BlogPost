@@ -76,5 +76,6 @@
     "timers/**/*",
     "extend-interface/**/*",
     "spread-operator/**/*",
+    "one-file/**/*",
   ],
 }
