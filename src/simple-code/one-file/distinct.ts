@@ -121,18 +121,20 @@ const funcsForObjects = [
 ];
 test(objects, funcsForObjects);
 
-[10, 100, 1000, 10000, 100000].forEach((length) => {
-    console.log(`length: ${length}`);
-    const array = generatePrimitiveArray(length, 10);
-
-    const loopCounts = [100, 500, 1000, 10000, 100000, 500000];
+[
+    { arrayLen: 10, loopRangeS: 100000, loopRangeE: 500000, step: 100000 },
+    { arrayLen: 100, loopRangeS: 10000, loopRangeE: 500000, step: 5000 },
+    { arrayLen: 1000, loopRangeS: 10000, loopRangeE: 50000, step: 5000 },
+].forEach((settings) => {
+    console.log(`length: ${settings.arrayLen}`);
+    const array = generatePrimitiveArray(settings.arrayLen, 10);
 
     const titles = funcsForPrimitive.map(x => x.name).join(",");
     console.log(`loop count,${titles}`);
-    loopCounts.forEach((loopCount) => {
-        const times = test(array, funcsForPrimitive, loopCount);
+    for (let i = settings.loopRangeS; i <= settings.loopRangeE; i += settings.step) {
+        const times = test(array, funcsForPrimitive, i);
         const data = times.join(", ");
-        console.log(`${loopCount}, ${data}`);
-    });
+        console.log(`${i}, ${data}`);
+    }
     console.log();
 });
