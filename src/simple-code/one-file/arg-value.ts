@@ -42,12 +42,18 @@
         greeting[greetingKey]();
     }
 
+    function getHelloString(): string {
+        return "hello";
+    }
+    const hello = getHelloString();
+
     console.log("---- func ----")
     func("hey");
     func("undefined-key");
 
     console.log("---- func1 ----")
     func1("hey");
+    // func1(hello);
     // func1("hogehoge"); // error
     // Argument of type '"hogehoge"' is not assignable to parameter of type '"hello" | "goodbye" | "hey"'.ts(2345)
 
@@ -61,6 +67,9 @@
     // Argument of type '"hey"' is not assignable to parameter of type 'GreetingEnum'.ts(2345)
     func3(GreetingEnum.Hey);
     func3(GreetingEnum.Hello);
+    if (hello in GreetingEnum) {
+        func2(hello as GreetingEnum);
+    }
 
     console.log("---- func4 ----")
     func4("hey");
