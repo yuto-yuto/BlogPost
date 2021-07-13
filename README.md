@@ -1,7 +1,9 @@
 # BlogPost
 
 This repository is for my blog post.
-[Technical Feed](https://yutotech.blogspot.com/)
+[Technical Feeder](https://www.technicalfeeder.com/)
+
+The repository is not well structured.
 
 ## How to run
 
