@@ -67,13 +67,20 @@
     // Argument of type '"hey"' is not assignable to parameter of type 'GreetingEnum'.ts(2345)
     func3(GreetingEnum.Hey);
     func3(GreetingEnum.Hello);
-    if (hello in GreetingEnum) {
-        func2(hello as GreetingEnum);
-    }
 
     console.log("---- func4 ----")
     func4("hey");
     func4(GreetingEnum.Hello);
     // func4("hogehoge"); // error
     // Argument of type '"hogehoge"' is not assignable to parameter of type '"hello" | "goodbye" | "hey"'.ts(2345)
+
+    console.log("--- check enum ---")
+    function isGreetingEnumValue(value: string): value is GreetingEnum {
+        return Object.values(GreetingEnum).includes(value as any);
+    }
+    if (isGreetingEnumValue(hello)) {
+        func2(hello);
+        func3(hello);
+        func4(hello);
+    }
 }
