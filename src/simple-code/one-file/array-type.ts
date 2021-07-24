@@ -98,31 +98,33 @@ const TypeValueMap = new Map([
 }
 
 {
+    console.log("------- 7");
     const array = [22, "hoge", 52];
 
-    interface CommandArg {
-        arg?: unknown;
-    }
     interface Command {
-        func: (arg: any) => void;
+        func: (arg: unknown) => void;
     }
-    class MyCommand1 implements Command {
-        public func(arg: string): void {
-            // do something
+    class StringCommand implements Command {
+        public func(arg: unknown): void {
+            if (typeof arg !== "string") {
+                throw new Error("arg is not string.");
+            }
+            console.log(arg.trim());
         }
     }
-    class MyCommand2 implements Command {
-        public func(arg: number): void {
-            // do something
+    class NumberCommand implements Command {
+        public func(arg: unknown): void {
+            if (typeof arg !== "number") {
+                throw new Error("arg is not number.");
+            }
+            console.log(arg * 2);
         }
     }
-    function func1(arg: string) { /* do something */ }
-    function func2(arg: number) { /* do something */ }
     function getCommand(arg: unknown): Command {
         const type = typeof arg;
         switch (type) {
-            case "string": return new MyCommand1();
-            case "number": return new MyCommand2();
+            case "string": return new StringCommand();
+            case "number": return new NumberCommand();
             default: throw new Error("Unsupported data type.");
         }
     };
