@@ -26,6 +26,7 @@
     "start-concat": "ts-node ./one-file/concat.ts",
     "start-dis": "ts-node ./one-file/distinct.ts",
     "start-arg": "ts-node ./one-file/arg-value.ts",
+    "start-array": "ts-node ./one-file/array-type.ts",
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "test": "mocha --recursive --require ts-node/register ./**/*_spec.ts"
@@ -46,7 +47,7 @@
     "mocha": "^8.1.3",
     "sinon": "^9.0.3",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.7"
+    "typescript": "^4.0.3"
   },
   "dependencies": {}
 }
