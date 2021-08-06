@@ -75,4 +75,23 @@
         copiedObj.first.second.third.value = "3-1-updated";
         console.log(originalObj);
     }
+    {
+        console.log("-------6");
+const obj = {
+    first: 1,
+    second: 2,
+    third: 3,
+};
+        {
+const { first, second, third } = obj;
+console.log(first);
+console.log(second);
+console.log(third);
+        }
+        {
+const { second, ...rest } = obj
+console.log(second);
+console.log(rest);
+        }
+    }
 }

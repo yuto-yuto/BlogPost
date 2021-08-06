@@ -27,6 +27,8 @@
     "start-dis": "ts-node ./one-file/distinct.ts",
     "start-arg": "ts-node ./one-file/arg-value.ts",
     "start-array": "ts-node ./one-file/array-type.ts",
+    "start-sub": "ts-node ./subscribe-test/app.ts",
+    "test-sub": "ts-node ./subscribe-test/Client_spec.ts",
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "test": "mocha --recursive --require ts-node/register ./**/*_spec.ts"
