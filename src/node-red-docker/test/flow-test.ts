@@ -92,7 +92,7 @@ describe("Node-RED flow test", () => {
         });
     });
 
-    it("should send 'payload contains neither 0 nor 1' when the first digit is 1", (done) => {
+    it("should send 'payload contains neither 0 nor 1' when the first digit is 2", (done) => {
         const flow = loadFlowFile();
         helper.load(requiredNodes, flow, () => {
             const inputNode = helper.getNode(inputNodeId);
@@ -146,8 +146,30 @@ describe("Node-RED flow test", () => {
 
     it("should succeed when replacing setTimeout and setInterval", (done) => {
         // Test fails when replacing setImmediate
-        sinon.useFakeTimers({ toFake: ["setImmediate"] });
-        // sinon.useFakeTimers({ toFake: ["setTimeout", "setInterval"] });
+        // sinon.useFakeTimers({ toFake: ["setImmediate"] });
+        sinon.useFakeTimers({ toFake: ["setTimeout", "setInterval"] });
         runFirstTest(done);
+    });
+
+    it("should block when the first digit is 3", (done) => {
+        const flow = loadFlowFile();
+        helper.load(requiredNodes, flow, () => {
+            const inputNode = helper.getNode(inputNodeId);
+            const notSendFunctionNode = helper.getNode("49a5f029.e3bdf");
+
+            notSendFunctionNode._complete = (msg: any, err: any) => {
+                try {
+                    console.log(msg);
+                    notSendFunctionNode.trace.should.be.calledWith("not sent");
+                    done();
+                } catch (e) {
+                    done(e);
+                }
+            };
+            inputNode.wires[0].forEach((wire: string) => {
+                const node = helper.getNode(wire);
+                node.receive({ payload: 123453 });
+            })
+        });
     });
 });
