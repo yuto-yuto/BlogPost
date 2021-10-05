@@ -12,18 +12,18 @@ const requiredNodes = [
 
 describe("Node-RED flow test", () => {
     const helper = require("node-red-node-test-helper");
-    let inputNodeId: string;
-    let outputNodeId: string;
+    let inputNodeIds: string[] = [];
+    let outputNodeIds: string[] = [];
 
     function loadFlowFile() {
         const flow: any[] = require("../flow/flows.json");
         flow.forEach((node) => {
             if (node.type === "inject") {
-                inputNodeId = node.id;
+                inputNodeIds[inputNodeIds.length] = node.id;
                 node.type = "helper";
             }
             if (node.type === "debug") {
-                outputNodeId = node.id;
+                outputNodeIds[outputNodeIds.length] = node.id;
                 node.type = "helper";
             }
         });
@@ -47,8 +47,8 @@ describe("Node-RED flow test", () => {
     function runFirstTest(done: Mocha.Done) {
         const flow = loadFlowFile();
         helper.load(requiredNodes, flow, () => {
-            const inputNode = helper.getNode(inputNodeId);
-            const outputNode = helper.getNode(outputNodeId);
+            const inputNode = helper.getNode(inputNodeIds[0]);
+            const outputNode = helper.getNode(outputNodeIds[0]);
 
             outputNode.on("input", (msg: any) => {
                 try {
@@ -73,8 +73,8 @@ describe("Node-RED flow test", () => {
     it("should send 'payload contains 1' when the first digit is 1", (done) => {
         const flow = loadFlowFile();
         helper.load(requiredNodes, flow, () => {
-            const inputNode = helper.getNode(inputNodeId);
-            const outputNode = helper.getNode(outputNodeId);
+            const inputNode = helper.getNode(inputNodeIds[0]);
+            const outputNode = helper.getNode(outputNodeIds[0]);
 
             outputNode.on("input", (msg: any) => {
                 try {
@@ -95,8 +95,8 @@ describe("Node-RED flow test", () => {
     it("should send 'payload contains neither 0 nor 1' when the first digit is 2", (done) => {
         const flow = loadFlowFile();
         helper.load(requiredNodes, flow, () => {
-            const inputNode = helper.getNode(inputNodeId);
-            const outputNode = helper.getNode(outputNodeId);
+            const inputNode = helper.getNode(inputNodeIds[0]);
+            const outputNode = helper.getNode(outputNodeIds[0]);
 
             outputNode.on("input", (msg: any) => {
                 try {
@@ -117,8 +117,8 @@ describe("Node-RED flow test", () => {
     it("make delay node bypass and block switch node", (done) => {
         const flow = loadFlowFile();
         helper.load(requiredNodes, flow, () => {
-            const inputNode = helper.getNode(inputNodeId);
-            const outputNode = helper.getNode(outputNodeId);
+            const inputNode = helper.getNode(inputNodeIds[0]);
+            const outputNode = helper.getNode(outputNodeIds[0]);
 
             outputNode.on("input", (msg: any) => {
                 try {
@@ -154,7 +154,7 @@ describe("Node-RED flow test", () => {
     it("should block when the first digit is 3", (done) => {
         const flow = loadFlowFile();
         helper.load(requiredNodes, flow, () => {
-            const inputNode = helper.getNode(inputNodeId);
+            const inputNode = helper.getNode(inputNodeIds[0]);
             const notSendFunctionNode = helper.getNode("49a5f029.e3bdf");
 
             notSendFunctionNode._complete = (msg: any, err: any) => {
@@ -166,6 +166,34 @@ describe("Node-RED flow test", () => {
                     done(e);
                 }
             };
+            inputNode.wires[0].forEach((wire: string) => {
+                const node = helper.getNode(wire);
+                node.receive({ payload: 123453 });
+            })
+        });
+    });
+
+    it("should set global and flow values", (done) => {
+        const flow = loadFlowFile();
+        helper.load(requiredNodes, flow, () => {
+            const inputNode = helper.getNode(inputNodeIds[1]);
+            const outputNode = helper.getNode(outputNodeIds[1]);
+            inputNode.context().global.set("global", "global-test-value");
+            inputNode.context().flow.set("flow", "flow-test-value");
+
+            outputNode.on("input", (msg: any) => {
+                try {
+                    expect(msg.payload).to.deep.equal({
+                        global: "global-test-value",
+                        flow: "flow-test-value",
+                        context: "undefined",
+                    });
+                    done();
+                } catch (e) {
+                    done(e);
+                }
+            });
+
             inputNode.wires[0].forEach((wire: string) => {
                 const node = helper.getNode(wire);
                 node.receive({ payload: 123453 });
