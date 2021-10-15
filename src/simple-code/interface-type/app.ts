@@ -1,5 +1,5 @@
 import { ManyArgs } from "./Abstract";
-import { showDataWithTypeGuards } from "./TypeGuards";
+import { isErrnoException, showDataWithTypeGuards } from "./TypeGuards";
 
 const personData: unknown = {
     name: "yuto",
@@ -36,3 +36,27 @@ if (data instanceof ManyArgs) {
 } else {
     console.log("instanceof doesn't work.")
 }
+
+console.log("---- Errorno Exception----")
+import * as fs from "fs";
+
+async function runExample() {
+    try {
+        await fs.promises.readFile("/not-exist-file");
+    } catch (e) {
+        if (isErrnoException(e)) {
+            console.log(`e.code: ${e.code}`);
+            console.log(`e.errno: ${e.errno}`);
+            console.log(`e.message: ${e.message}`);
+            console.log(`e.name: ${e.name}`);
+            console.log(`e.path: ${e.path}`);
+            console.log(`e.stack: ${e.stack}`);
+            console.log(`e.syscall: ${e.syscall}`);
+        } else {
+            console.log(e);
+        }
+    }
+}
+runExample()
+    .then(() => console.log("done"))
+    .catch(() => console.log("error"));

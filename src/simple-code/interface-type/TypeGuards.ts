@@ -20,4 +20,9 @@ export function showDataWithTypeGuards(data: unknown) {
     }
 }
 
-
+export function isErrnoException(object: unknown): object is NodeJS.ErrnoException {
+    return Object.prototype.hasOwnProperty.call(object, "code")
+        || Object.prototype.hasOwnProperty.call(object, "errno")
+        || Object.prototype.hasOwnProperty.call(object, "message")
+        || Object.prototype.hasOwnProperty.call(object, "name");
+}
