@@ -5,7 +5,7 @@ function timeout1() {
             console.log("internal process1 working...");
             throw new Error("throw an error1");
         }, 1000);
-    } catch (e) {
+    } catch (e: any) {
         console.log(e.message);
     }
 }
@@ -14,7 +14,7 @@ function timeout2() {
         try {
             console.log("internal process2 working...");
             throw new Error("throw an error2");
-        } catch (e) {
+        } catch (e: any) {
             console.error(e.message);
         }
     }, 1000);
@@ -49,7 +49,7 @@ function timeoutWithPromise2() {
     });
 }
 
-process.on("uncaughtException", (e) => {console.log(e.message) });
+process.on("uncaughtException", (e) => { console.log(e.message) });
 timeout1();
 // timeout2();
 // timeoutWithPromise1();
