@@ -31,6 +31,7 @@
     "test-sub": "ts-node ./subscribe-test/Client_spec.ts",
     "start-or": "ts-node ./one-file/OrOperator.ts",
     "start-json": "ts-node ./one-file/json-schema.ts",
+    "start-asc": "ts-node ./one-file/string-to-ascii.ts",
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "test": "mocha --recursive --require ts-node/register ./**/*_spec.ts"
