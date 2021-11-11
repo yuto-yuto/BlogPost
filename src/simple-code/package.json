@@ -32,6 +32,7 @@
     "start-or": "ts-node ./one-file/OrOperator.ts",
     "start-json": "ts-node ./one-file/json-schema.ts",
     "start-asc": "ts-node ./one-file/string-to-ascii.ts",
+    "start-bit": "ts-node ./one-file/BitOperation.ts",
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "test": "mocha --recursive --require ts-node/register ./**/*_spec.ts"
