@@ -1,7 +1,7 @@
-import Ajv from "ajv";
+import Ajv2020 from "ajv/dist/2020";
 import addFormats from "ajv-formats";
 
-const ajv = new Ajv({ strict: true });
+const ajv = new Ajv2020({ strict: true });
 
 addFormats(ajv);
 
@@ -51,6 +51,8 @@ console.log("--- validate without schema---");
 console.log(isValid(json));
 
 const schema = {
+    $schema: "https://json-schema.org/draft/2020-12/schema",
+    $id: "/base",
     type: "object",
     properties: {
         version: {
@@ -64,6 +66,7 @@ const schema = {
             format: "date-time"
         },
         contactInfo: {
+            $id: "/base/contactInfo",
             type: "object",
             properties: {
                 tel: {
@@ -209,4 +212,125 @@ validateBySchema(json, schema);
     validateBySchema("English", schema);
     validateBySchema("German", schema);
     validateBySchema("Italian", schema);
+}
+
+
+{
+    const schema2 = {
+        $schema: "https://json-schema.org/draft/2020-12/schema",
+        $id: "/schema2",
+        $ref: "base#",
+        required: [
+            "name",
+            "additionalProp",
+        ],
+        type: "object",
+        properties: {
+            additionalProp: {
+                type: "string",
+            }
+        }
+    };
+    console.log("--- Refer another schema ---");
+    const myAjv = new Ajv2020({
+        allowUnionTypes: true,
+    });
+    addFormats(myAjv);
+    myAjv.addSchema(schema);
+    const validate = myAjv.compile(schema2);
+    {
+        const result = validate({
+            name: "Yuto",
+            additionalProp: "value1",
+        });
+        console.log(result, validate.errors);
+    }
+
+    {
+        const result = validate({
+            name: "Yuto",
+            additionalProp: 12345,
+        });
+        console.log(result, validate.errors);
+    }
+
+    {
+        const result = validate({
+            additionalProp: "value1",
+        });
+        console.log(result, validate.errors);
+    }
+
+    {
+        const result = validate({
+            name: "Yuto",
+        });
+        console.log(result, validate.errors);
+    }
+}
+
+{
+    console.log("--- refer to a nested property ---");
+
+    const schema2 = {
+        $schema: "https://json-schema.org/draft/2020-12/schema",
+        $id: "/schema2",
+        $ref: "base#",
+        type: "object",
+        properties: {
+            contactInfo: {
+                $ref: "base/contactInfo",
+                type: "object",
+                required: ["tel", "additional"],
+                properties: {
+                    additional: {
+                        type: "string"
+                    }
+                }
+            }
+        }
+    };
+    const myAjv = new Ajv2020({ allErrors: true });
+    addFormats(myAjv);
+    myAjv.addSchema(schema);
+    const validate = myAjv.compile(schema2);
+    {
+        const result = validate({
+            name: "Yuto",
+            contactInfo: {
+                tel: "000-1111-2222",
+                address: "somewhere",
+                postalCode: 12345,
+                additional: "additional-value",
+            }
+        });
+        console.log(result, validate.errors);
+    }
+    {
+        const result = validate({
+            name: "Yuto",
+            contactInfo: {
+                address: "somewhere",
+                postalCode: 12345,
+            }
+        });
+        console.log(result, validate.errors);
+    }
+}
+
+
+{
+    console.log("--- allErrors ---");
+    const myAjv = new Ajv2020({
+        allowUnionTypes: true,
+        allErrors: true,
+    });
+    addFormats(myAjv);
+    const validate = myAjv.compile(schema);
+    const result = validate({
+        version: "string-version",
+        name: 123,
+        languages: "French",
+    });
+    console.log(result, validate.errors);
 }
