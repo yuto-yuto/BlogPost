@@ -34,6 +34,7 @@
     "start-asc": "ts-node ./one-file/string-to-ascii.ts",
     "start-bit": "ts-node ./one-file/BitOperation.ts",
     "start-mocha": "mocha --require ts-node/register ./one-file/MochaOrder.ts",
+    "start-obj-array": "mocha --require ts-node/register ./one-file/ObjectArrayTest.ts",
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "test": "mocha --recursive --require ts-node/register ./**/*_spec.ts"
