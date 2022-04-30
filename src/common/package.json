@@ -1,0 +1,35 @@
+{
+  "name": "common",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuto-yuto/BlogPost.git"
+  },
+  "description": "",
+  "main": "./dist/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "engines": {
+    "node": ">= 8.17.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf ./dist",
+    "test": "mocha --recursive --require ts-node/register ./**/*_spec.ts"
+  },
+  "keywords": [
+    "common"
+  ],
+  "author": "yuto-yuto",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/mocha": "^8.0.3",
+    "@types/node": "^12.0.0",
+    "@types/sinon": "^9.0.5",
+    "mocha": "^9.1.4",
+    "sinon": "^9.0.3",
+    "ts-node": "^8.10.2",
+    "typescript": "^4.4.4"
+  }
+}
