@@ -47,9 +47,9 @@ if (result.score > 60) {
         ...result,
         // Type '{ result: string; score: number; subject: string; }' is not assignable to type '{ score: number; subject: string; }'.
         // Object literal may only specify known properties, and 'result' does not exist in type '{ score: number; subject: string; }'.ts(2322)
-        result: "Pass",
+        // result: "Pass",
     }
     // Element implicitly has an 'any' type because expression of type '"result"' can't be used to index type '{ score: number; subject: string; }'.
     // Property 'result' does not exist on type '{ score: number; subject: string; }'.ts(7053)
-    result["result"] = "Pass";
+    // result["result"] = "Pass";
 }
