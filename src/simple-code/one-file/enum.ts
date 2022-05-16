@@ -137,4 +137,20 @@
         });
         console.log(valueList);
     }
+    {
+        type MixEnumKey = { [key in MixEnum]: unknown };
+        type MixEnumKey2 = Record<MixEnum, unknown>;
+
+        const obj: MixEnumKey | MixEnumKey2 = {
+            [MixEnum.Debug]: "aaaa",
+            [MixEnum.Info]: 123,
+            [MixEnum.Trace]: "cccc",
+        };
+
+        type NullableMixEnumKey = { [key in MixEnum]?: unknown };
+        const obj2: NullableMixEnumKey = {
+            [MixEnum.Debug]: "aaaa",
+            [MixEnum.Info]: 123,
+        };
+    }
 }
