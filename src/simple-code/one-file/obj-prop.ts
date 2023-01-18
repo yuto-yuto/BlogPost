@@ -95,15 +95,15 @@
         foo: { value: "value" },
     };
 
-    function getValueOf<T>(object: T, key: string): T[keyof T] | undefined {
+    function getValueOf<T extends object>(object: T, key: string): T[keyof T] | undefined {
         if (isKeyOf(object, key)) {
             return object[key];
         }
         return undefined;
     }
 
-    function isKeyOf<T>(object: T, key: any): key is keyof T {
-        return key in object
+    function isKeyOf<T extends object>(object: T, key: any): key is keyof T {
+        return key in object;
     }
     console.log(getValueOf(obj, "foo"));
 }
