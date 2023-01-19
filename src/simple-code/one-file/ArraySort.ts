@@ -111,13 +111,14 @@ function sortStringFirst(a: string, b: string) {
     if (isNumA && isNumB) {
         const numA = parseInt(a, 10);
         const numB = parseInt(b, 10);
-        if (numA > numB) {
-            return 1;
-        }
-        if (numA < numB) {
-            return -1;
-        }
-        return 0;
+        return numA - numB;
+        // if (numA > numB) {
+        //     return 1;
+        // }
+        // if (numA < numB) {
+        //     return -1;
+        // }
+        // return 0;
     }
     return null;
 }
@@ -135,13 +136,14 @@ function sortNumberFirst(a: string, b: string) {
     if (isNumA && isNumB) {
         const numA = parseInt(a, 10);
         const numB = parseInt(b, 10);
-        if (numA > numB) {
-            return 1;
-        }
-        if (numA < numB) {
-            return -1;
-        }
-        return 0;
+        return numA - numB;
+        // if (numA > numB) {
+        //     return 1;
+        // }
+        // if (numA < numB) {
+        //     return -1;
+        // }
+        // return 0;
     }
     return null;
 }
